@@ -2,8 +2,8 @@
 projeto_id: PROJ-004
 nome: Trading Dashboard Quantitativo
 tier: MEDIUM
-fase: AGUARDANDO_INPUT
-status: aguardando
+fase: EM_ANDAMENTO
+status: em_andamento
 ultima_atualizacao: 2026-02-12 15:57
 atualizado_por: brain
 ---
