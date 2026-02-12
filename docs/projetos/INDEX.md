@@ -9,7 +9,7 @@
 | ID | Nome | Status | Gate |
 |----|------|--------|------|
 | PROJ-001-procedure-check | Procedure | ✅ CONCLUÍDO | CONCLUÍDO |
-| PROJ-004-trading-dashboard | PROJ-004-trading-dashboard | ⚪  |  |
+| PROJ-004-trading-dashboard | Trading | 🔴 PLANEJAMENTO | PLANEJAMENTO |
 | PROJ-003 | FactoryOS Dashboard | ✅ CONCLUÍDO | QA Aprovado |
 | PROJ-002 | Melhoria da Qualidade Visual | ✅ CONCLUÍDO | Entrega |
 | PROJ-001 | Procedure Check + Marketing | ✅ CONCLUÍDO | Entrega |
@@ -22,7 +22,7 @@
 |---------|-------|
 | Total de Projetos | 2 |
 | Concluídos | 1 |
-| Em Andamento | 0 |
+| Em Andamento | 1 |
 
 ---
 

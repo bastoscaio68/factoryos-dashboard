@@ -1,3 +1,13 @@
+---
+projeto_id: PROJ-004
+nome: Trading Dashboard Quantitativo
+tier: MEDIUM
+fase: PLANEJAMENTO
+status: planejamento
+ultima_atualizacao: 2026-02-12 15:57
+atualizado_por: brain
+---
+
 # STATUS — PROJ-004
 
 > **Projeto:** Trading Dashboard Quantitativo
