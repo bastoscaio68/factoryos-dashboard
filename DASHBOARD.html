@@ -245,6 +245,8 @@
         .badge-enterprise { background: rgba(0, 212, 255, 0.2); color: var(--accent-blue); }
         .badge-active { background: rgba(0, 212, 255, 0.2); color: var(--accent-blue); }
         .badge-aguardando { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+        .badge-ativo { background: rgba(0, 212, 255, 0.2); color: var(--accent-blue); }
+        .badge-planejamento { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
         .badge-concluido { background: rgba(16, 185, 129, 0.2); color: #34d399; }
 
         .project-body {
@@ -806,7 +808,10 @@
                         <div class="project-name">${p.name}</div>
                         <div class="badges">
                             <span class="badge badge-${p.tier.toLowerCase()}">${p.tier}</span>
-                            <span class="badge badge-${p.status.toLowerCase().replace(' ', '')}">${p.status}</span>
+                            <span class="badge badge-${
+    p.status.toLowerCase().includes('conclu') ? 'concluido' : 
+    p.status.toLowerCase().includes('andamento') || p.status.toLowerCase().includes('planejamento') ? 'ativo' : 'aguardando'
+}">${p.status}</span>
                         </div>
                     </div>
                     <div class="project-body">
