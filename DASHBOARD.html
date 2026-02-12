@@ -790,6 +790,7 @@
             const grid = document.getElementById('projects-grid');
             const filtered = projects.filter(p => {
                 if (currentFilter === 'todos') return true;
+                if (currentFilter === 'ativos') return (p.status === 'Em Andamento' || p.status === 'PLANEJAMENTO');
                 return p.status.toLowerCase().replace(' ', '') === currentFilter;
             });
 
