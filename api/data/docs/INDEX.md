@@ -51,3 +51,5 @@ data/docs/
 ---
 
 *Atualizado automaticamente pelo Orquestrador*
+
+<!-- Cache refresh Thu Feb 12 06:17:16 PM -03 2026 -->
