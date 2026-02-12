@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FactoryOS Dashboard v2.1</title>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
+    <title>FactoryOS Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -699,8 +696,7 @@
         <p>📊 FactoryOS Dashboard | Atualizado: <span id="last-updated">-</span></p>
     </footer>
 
-    <script src="/index.js?v=fa4f5b7">
-        // Cache version: 1770937523: 1770937509
+    <script>
         // State
         let currentPath = 'docs/projetos';
         let projects = [];
@@ -714,7 +710,7 @@
         };
 
         // API Base
-        const API_BASE = ''; // Same domain on Vercel
+        const API_BASE = '/api';
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
@@ -753,68 +749,18 @@
             });
         }
 
-        // Adapta dados da API para o formato esperado
-
-        // Helper functions for filters
-        function normalizeStatus(status) {
-            return status.toLowerCase()
-                .replace(/\s/g, '')
-                .replace(/[áàâãéèêíìîóòôõúùûç]/g, function(m) {
-                    return {'á':'a','à':'a','â':'a','ã':'a','é':'e','è':'e','ê':'e','í':'i','ì':'i','î':'i','ó':'o','ò':'o','ô':'o','õ':'o','ú':'u','ù':'u','û':'u','ç':'c'}[m];
-                });
-        }
-
-        function isStatus(status, type) {
-            const norm = normalizeStatus(status);
-            if (type === 'ativos') return norm.includes('andamento') || norm.includes('planejamento');
-            if (type === 'concluidos') return norm.includes('conclu') || norm.includes('completo') || norm.includes('entrega');
-            if (type === 'aguardando') return norm.includes('aguardando');
-            return true;
-        }
-
-        // Helper functions for filters
-        function normalizeStatus(status) {
-            return status.toLowerCase()
-                .replace(/\s/g, '')
-                .replace(/[áàâãéèêíìîóòôõúùûç]/g, function(m) {
-                    return {'á':'a','à':'a','â':'a','ã':'a','é':'e','è':'e','ê':'e','í':'i','ì':'i','î':'i','ó':'o','ò':'o','ô':'o','õ':'o','ú':'u','ù':'u','û':'u','ç':'c'}[m];
-                });
-        }
-
-        function isStatus(status, type) {
-            const norm = normalizeStatus(status);
-            if (type === 'ativos') return norm.includes('andamento') || norm.includes('planejamento');
-            if (type === 'concluidos') return norm.includes('conclu') || norm.includes('completo') || norm.includes('entrega');
-            if (type === 'aguardando') return norm.includes('aguardando');
-            return true;
-        }
-        function adaptProjectData(apiData) {
-            const tierMap = { 'ENTERPRISE': 'Enterprise', 'MEDIUM': 'Medium', 'LITE': 'Lite' };
-            return apiData.map(p => ({
-                id: p.id,
-                name: p.titulo,
-                tier: tierMap[p.tier] || 'Enterprise',
-                status: p.status,
-                gates: { current: parseInt(p.gate) || 1, total: 5 },
-                ksfs: { completed: 0, total: 5 },
-                descricao: p.descricao
-            }));
-        }
-
         // Load Projects
         async function loadProjects() {
             try {
-                const response = await fetch(`${API_BASE}/projetos?_t=${Date.now()}`);
+                const response = await fetch(`${API_BASE}/projetos`);
                 if (response.ok) {
-                    const data = await response.json();
-                    projects = adaptProjectData(data.data.projetos);
+                    projects = await response.json();
                 } else {
                     projects = getMockProjects();
                 }
                 renderProjects();
                 updateStats();
             } catch (e) {
-                console.error('API Error:', e);
                 projects = getMockProjects();
                 renderProjects();
                 updateStats();
@@ -827,7 +773,7 @@
             container.innerHTML = '<div class="loading">Carregando arquivos...</div>';
 
             try {
-                const response = await fetch(`${API_BASE}/arquivos?path=${encodeURIComponent(currentPath)}&_t=${Date.now()}`);
+                const response = await fetch(`${API_BASE}/arquivos?path=${encodeURIComponent(currentPath)}`);
                 if (response.ok) {
                     const data = await response.json();
                     renderFiles(data);
@@ -844,8 +790,8 @@
             const grid = document.getElementById('projects-grid');
             const filtered = projects.filter(p => {
                 if (currentFilter === 'todos') return true;
-                return isStatus(p.status, currentFilter);
-            });
+                if (currentFilter === 'ativos') return (p.status.toUpperCase().includes('ANDAMENTO') || p.status.toUpperCase().includes('PLANEJAMENTO'));
+                return p.status.toLowerCase().replace(' ', '') === currentFilter;
             });
 
             if (filtered.length === 0) {
@@ -968,11 +914,9 @@
 
         // Update Stats
         function updateStats() {
-            document.getElementById('stat-ativos').textContent = projects.filter(p => isStatus(p.status, 'ativos')).length;
-            document.getElementById('stat-aguardando').textContent = projects.filter(p => isStatus(p.status, 'aguardando')).length;
-            document.getElementById('stat-concluidos').textContent = projects.filter(p => isStatus(p.status, 'concluidos')).length;
+            document.getElementById('stat-ativos').textContent = projects.filter(p => p.status.toUpperCase().includes('ANDAMENTO') || p.status.toUpperCase().includes('PLANEJAMENTO')).length;
             document.getElementById('stat-aguardando').textContent = projects.filter(p => p.status === 'Aguardando').length;
-            document.getElementById('stat-concluidos').textContent = projects.filter(p => p.status.toLowerCase().includes('conclu') || p.status.toLowerCase().includes('completo') || p.status.toLowerCase().includes('entrega')).length;
+            document.getElementById('stat-concluidos').textContent = projects.filter(p => p.status === 'CONCLUÍDO' || p.status === 'COMPLETO' || p.status === 'CONCLUIDO').length;
             document.getElementById('stat-total').textContent = projects.length;
         }
 
@@ -993,8 +937,6 @@
             document.getElementById('detail-body').innerHTML = `
                 <p><strong>Nome:</strong> ${project.name}</p>
                 <p><strong>Status:</strong> ${project.status}</p>
-                <p><strong>Descrição:</strong> ${project.descricao || 'N/A'}</p>
-                <p><strong>Descrição:</strong> ${project.descricao || 'N/A'}</p>
                 <p><strong>Tier:</strong> ${project.tier}</p>
                 <p><strong>Gates:</strong> ${project.gates?.current || 0}/${project.gates?.total || 5}</p>
                 <p><strong>KSFs:</strong> ${project.ksfs?.completed || 0}/${project.ksfs?.total || 5}</p>
@@ -1030,7 +972,7 @@
 
         // Auto Refresh
         function autoRefresh() {
-            setInterval(refreshData, 10000);
+            setInterval(refreshData, 30000);
         }
 
         // Mock Data
