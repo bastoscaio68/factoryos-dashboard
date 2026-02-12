@@ -3,32 +3,35 @@
   "builds": [
     {
       "src": "api/**/*.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["*.html"]
-      }
+      "use": "@vercel/node"
+    },
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/",
-      "dest": "/api/dashboard.js"
+      "dest": "/index.html"
     },
     {
       "src": "/projetos",
-      "dest": "/api/dashboard.js?mode=projetos"
+      "dest": "/api/projetos.js"
     },
     {
       "src": "/arquivos",
-      "dest": "/api/dashboard.js?mode=arquivos"
-    },
-    {
-      "src": "/fluxograma",
-      "dest": "/api/fluxograma.js"
+      "dest": "/api/arquivos.js"
     },
     {
       "src": "/api/download",
       "dest": "/api/download.js"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/:file*.html",
+      "destination": "/:file*.html"
     }
   ]
 }
