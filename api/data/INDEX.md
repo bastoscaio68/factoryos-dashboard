@@ -1,6 +1,6 @@
 # ÍNDICE DE PROJETOS — FactoryOS
 
-> Última atualização: 2026-02-12 19:24
+> Última atualização: 2026-02-12 19:25
 
 ---
 
@@ -8,8 +8,8 @@
 
 | ID | Nome | Status | Gate |
 |----|------|--------|------|
-| PROJ-001-procedure-check | Procedure Check + Marketing Visual | ✅ CONCLUÍDO | CONCLUÍDO |
-| PROJ-004-trading-dashboard |  | ⚪  |  |
+| PROJ-001-procedure-check | Procedure | ✅ CONCLUÍDO | CONCLUÍDO |
+| PROJ-004-trading-dashboard | PROJ-004-trading-dashboard | ⚪  |  |
 | PROJ-003 | FactoryOS Dashboard | ✅ CONCLUÍDO | QA Aprovado |
 | PROJ-002 | Melhoria da Qualidade Visual | ✅ CONCLUÍDO | Entrega |
 | PROJ-001 | Procedure Check + Marketing | ✅ CONCLUÍDO | Entrega |
