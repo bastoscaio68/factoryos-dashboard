@@ -754,6 +754,40 @@
         }
 
         // Adapta dados da API para o formato esperado
+
+        // Helper functions for filters
+        function normalizeStatus(status) {
+            return status.toLowerCase()
+                .replace(/\s/g, '')
+                .replace(/[áàâãéèêíìîóòôõúùûç]/g, function(m) {
+                    return {'á':'a','à':'a','â':'a','ã':'a','é':'e','è':'e','ê':'e','í':'i','ì':'i','î':'i','ó':'o','ò':'o','ô':'o','õ':'o','ú':'u','ù':'u','û':'u','ç':'c'}[m];
+                });
+        }
+
+        function isStatus(status, type) {
+            const norm = normalizeStatus(status);
+            if (type === 'ativos') return norm.includes('andamento') || norm.includes('planejamento');
+            if (type === 'concluidos') return norm.includes('conclu') || norm.includes('completo') || norm.includes('entrega');
+            if (type === 'aguardando') return norm.includes('aguardando');
+            return true;
+        }
+
+        // Helper functions for filters
+        function normalizeStatus(status) {
+            return status.toLowerCase()
+                .replace(/\s/g, '')
+                .replace(/[áàâãéèêíìîóòôõúùûç]/g, function(m) {
+                    return {'á':'a','à':'a','â':'a','ã':'a','é':'e','è':'e','ê':'e','í':'i','ì':'i','î':'i','ó':'o','ò':'o','ô':'o','õ':'o','ú':'u','ù':'u','û':'u','ç':'c'}[m];
+                });
+        }
+
+        function isStatus(status, type) {
+            const norm = normalizeStatus(status);
+            if (type === 'ativos') return norm.includes('andamento') || norm.includes('planejamento');
+            if (type === 'concluidos') return norm.includes('conclu') || norm.includes('completo') || norm.includes('entrega');
+            if (type === 'aguardando') return norm.includes('aguardando');
+            return true;
+        }
         function adaptProjectData(apiData) {
             const tierMap = { 'ENTERPRISE': 'Enterprise', 'MEDIUM': 'Medium', 'LITE': 'Lite' };
             return apiData.map(p => ({
@@ -810,8 +844,8 @@
             const grid = document.getElementById('projects-grid');
             const filtered = projects.filter(p => {
                 if (currentFilter === 'todos') return true;
-                if (currentFilter === 'ativos') return (p.status.toUpperCase().includes('ANDAMENTO') || p.status.toUpperCase().includes('PLANEJAMENTO'));
-                return p.status.toLowerCase().replace(' ', '') === currentFilter;
+                return isStatus(p.status, currentFilter);
+            });
             });
 
             if (filtered.length === 0) {
@@ -934,7 +968,9 @@
 
         // Update Stats
         function updateStats() {
-            document.getElementById('stat-ativos').textContent = projects.filter(p => p.status.toUpperCase().includes('ANDAMENTO') || p.status.toUpperCase().includes('PLANEJAMENTO')).length;
+            document.getElementById('stat-ativos').textContent = projects.filter(p => isStatus(p.status, 'ativos')).length;
+            document.getElementById('stat-aguardando').textContent = projects.filter(p => isStatus(p.status, 'aguardando')).length;
+            document.getElementById('stat-concluidos').textContent = projects.filter(p => isStatus(p.status, 'concluidos')).length;
             document.getElementById('stat-aguardando').textContent = projects.filter(p => p.status === 'Aguardando').length;
             document.getElementById('stat-concluidos').textContent = projects.filter(p => p.status === 'CONCLUÍDO' || p.status === 'COMPLETO' || p.status === 'CONCLUIDO').length;
             document.getElementById('stat-total').textContent = projects.length;
@@ -957,6 +993,7 @@
             document.getElementById('detail-body').innerHTML = `
                 <p><strong>Nome:</strong> ${project.name}</p>
                 <p><strong>Status:</strong> ${project.status}</p>
+                <p><strong>Descrição:</strong> ${project.descricao || 'N/A'}</p>
                 <p><strong>Tier:</strong> ${project.tier}</p>
                 <p><strong>Gates:</strong> ${project.gates?.current || 0}/${project.gates?.total || 5}</p>
                 <p><strong>KSFs:</strong> ${project.ksfs?.completed || 0}/${project.ksfs?.total || 5}</p>
