@@ -932,7 +932,7 @@
 
         // Update Stats
         function updateStats() {
-            document.getElementById('stat-ativos').textContent = projects.filter(p => p.status === 'Em Andamento').length;
+            document.getElementById('stat-ativos').textContent = projects.filter(p => p.status === 'Em Andamento' || p.status === 'PLANEJAMENTO').length;
             document.getElementById('stat-aguardando').textContent = projects.filter(p => p.status === 'Aguardando').length;
             document.getElementById('stat-concluidos').textContent = projects.filter(p => p.status === 'Concluído').length;
             document.getElementById('stat-total').textContent = projects.length;
