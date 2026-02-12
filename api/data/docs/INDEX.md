@@ -1,121 +1,51 @@
 # ÍNDICE DE PROJETOS — FactoryOS
 
-> Última atualização: 2026-02-12 07:35
+> Última atualização: 2026-02-12 17:50
 
 ---
 
 ## 📋 Projetos Ativos
 
-| ID | Nome | Status | Gate | Descrição |
-|----|------|--------|------|-----------|
-| PROJ-003-EXT | File Browser | ✅ COMPLETO | QA Aprovado | Navegação e download de arquivos |
-| PROJ-003 | FactoryOS Dashboard | ✅ COMPLETO | QA Aprovado | Plataforma de gestão visual |
-| PROJ-002 | Melhoria da Qualidade Visual | ✅ CONCLUÍDO | Entrega | Plano de qualidade visual |
-| PROJ-001 | Procedure Check + Marketing Visual | ✅ CONCLUÍDO | Entrega | Stress test + material |
-
----
-
-## ✅ PROJ-003-EXT — File Browser
-
-**Status:** COMPLETO (QA Aprovado)
-**Tier:** ENTERPRISE
-**Iniciado:** 2026-02-12 07:25
-**Concluído:** 2026-02-12 07:33
-
-**Artefatos:**
-| Arquivo | Descrição |
-|---------|-----------|
-| api/files.js | API de arquivos |
-| DASHBOARD.html (atualizado) | Nova aba Arquivos |
-
-**Features:**
-- ✅ Navegação de pastas (breadcrumb)
-- ✅ Download direto
-- ✅ Ícones por tipo
-
----
-
-## ✅ PROJ-003 — FactoryOS Dashboard
-
-**Status:** COMPLETO (QA Aprovado)
-**Tier:** ENTERPRISE
-**Iniciado:** 2026-02-12 07:12
-**Concluído:** 2026-02-12 07:20
-
-**Artefatos:**
-| Arquivo | Tamanho |
-|---------|---------|
-| DASHBOARD.html | 34KB |
-| DESIGN-SYSTEM.md | 25KB |
-| MANUAL.html | 21KB |
-| api/server.js | 14KB |
-| api/files.js | 7KB |
-| deploy.sh | 6.8KB |
-| GATEWAY_CONFIG.md | 5.4KB |
-| QA-REPORT.md | 3.4KB |
-
-**KSFs:**
-- ✅ Dashboard acessível remotamente
-- ✅ Tempo real (< 30s)
-- ✅ Criação via interface
-- ✅ Visualização completa
-- ✅ Design responsivo
+| ID | Nome | Status | Gate |
+|----|------|--------|------|
+| PROJ-004 | Trading Dashboard Quantitativo | 🔴 PLANEJAMENTO | Gate 0 |
+| PROJ-003 | FactoryOS Dashboard | ✅ CONCLUÍDO | QA Aprovado |
+| PROJ-002 | Melhoria da Qualidade Visual | ✅ CONCLUÍDO | Entrega |
+| PROJ-001 | Procedure Check + Marketing | ✅ CONCLUÍDO | Entrega |
 
 ---
 
 ## 📊 Resumo
 
-| ID | Nome | Status | KSFs |
-|----|------|--------|------|
-| PROJ-003-EXT | File Browser | ✅ Completo | 3/3 |
-| PROJ-003 | Dashboard | ✅ Completo | 5/5 |
-| PROJ-002 | Melhoria Visual | ✅ Concluído | 6/6 |
-| PROJ-001 | Procedure Check | ✅ Concluído | 4/4 |
+| Métrica | Valor |
+|---------|-------|
+| Total de Projetos | 4 |
+| Concluídos | 3 |
+| Em Andamento | 1 |
 
 ---
 
-## 🚀 Deploy Necessário
+## 🚀 PROJ-004 — NOVO
 
-**Ambos os projetos prontos!** Aguardando token Vercel.
+**Trading Dashboard Quantitativo para BTC**
 
-```bash
-# Configurar token:
-export VERCEL_TOKEN=seu-token-aqui
+**Objetivo:** Dashboard inteligente para trading quantitativo
 
-# Deploy:
-cd /home/team/.openclaw/docs/projetos/PROJ-003-dashboard-factoryos
-npx vercel --prod
-```
+**Stakeholder:** Caio Bastos
+**Prioridade:** 🔴 ALTA (Estratégico)
+**Status:** Planejando Gate 0
 
 ---
 
-## 📁 Estrutura Final
+## 📁 Estrutura de Pastas
 
 ```
-docs/projetos/
+data/docs/
 ├── INDEX.md
-├── DASHBOARD.html (34KB)
-├── DASHBOARD-MANUAL.md
-│
 ├── PROJ-001-procedure-check/
 ├── PROJ-002-visual-improvement/
-│
-└── PROJ-003-dashboard-factoryos/
-    ├── DASHBOARD.html
-    ├── DESIGN-SYSTEM.md
-    ├── MANUAL.html
-    ├── deploy.sh
-    ├── api/
-    │   ├── server.js
-    │   ├── files.js
-    │   ├── package.json
-    │   └── GATEWAY_CONFIG.md
-    ├── PROJ-003-EXT/
-    │   ├── STATUS.md
-    │   ├── PDCA_LOG.md
-    │   ├── RESPONSIBILITY_MATRIX.md
-    │   └── QA-REPORT.md
-    └── QA-REPORT.md
+├── PROJ-003-dashboard-factoryos/
+└── PROJ-004-trading-dashboard/
 ```
 
 ---
