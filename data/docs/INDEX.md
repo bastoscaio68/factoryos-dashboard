@@ -1,6 +1,6 @@
 # ÍNDICE DE PROJETOS — FactoryOS
 
-> Última atualização: 2026-02-12 20:13
+> Última atualização: 2026-02-12 20:32
 
 ---
 
