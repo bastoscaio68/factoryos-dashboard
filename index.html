@@ -972,7 +972,7 @@
             document.getElementById('stat-aguardando').textContent = projects.filter(p => isStatus(p.status, 'aguardando')).length;
             document.getElementById('stat-concluidos').textContent = projects.filter(p => isStatus(p.status, 'concluidos')).length;
             document.getElementById('stat-aguardando').textContent = projects.filter(p => p.status === 'Aguardando').length;
-            document.getElementById('stat-concluidos').textContent = projects.filter(p => p.status === 'CONCLUÍDO' || p.status === 'COMPLETO' || p.status === 'CONCLUIDO').length;
+            document.getElementById('stat-concluidos').textContent = projects.filter(p => p.status.toLowerCase().includes('conclu') || p.status.toLowerCase().includes('completo') || p.status.toLowerCase().includes('entrega')).length;
             document.getElementById('stat-total').textContent = projects.length;
         }
 
@@ -993,6 +993,7 @@
             document.getElementById('detail-body').innerHTML = `
                 <p><strong>Nome:</strong> ${project.name}</p>
                 <p><strong>Status:</strong> ${project.status}</p>
+                <p><strong>Descrição:</strong> ${project.descricao || 'N/A'}</p>
                 <p><strong>Descrição:</strong> ${project.descricao || 'N/A'}</p>
                 <p><strong>Tier:</strong> ${project.tier}</p>
                 <p><strong>Gates:</strong> ${project.gates?.current || 0}/${project.gates?.total || 5}</p>
