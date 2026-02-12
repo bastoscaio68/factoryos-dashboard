@@ -756,6 +756,14 @@
         // Adapta dados da API para o formato esperado
 
         // Helper functions for filters
+        function parseGate(gateStr) {
+            if (!gateStr) return 1;
+            const gate = parseInt(gateStr);
+            if (!isNaN(gate)) return gate;
+            // Parse gate from text like "Gate 0", "Gate 1", etc.
+            const match = String(gateStr).match(/Gate\s*(\d+)/i);
+            return match ? parseInt(match[1]) + 1 : 1;
+        }
         function normalizeStatus(status) {
             return status.toLowerCase()
                 .replace(/\s/g, '')
@@ -773,6 +781,14 @@
         }
 
         // Helper functions for filters
+        function parseGate(gateStr) {
+            if (!gateStr) return 1;
+            const gate = parseInt(gateStr);
+            if (!isNaN(gate)) return gate;
+            // Parse gate from text like "Gate 0", "Gate 1", etc.
+            const match = String(gateStr).match(/Gate\s*(\d+)/i);
+            return match ? parseInt(match[1]) + 1 : 1;
+        }
         function normalizeStatus(status) {
             return status.toLowerCase()
                 .replace(/\s/g, '')
@@ -795,7 +811,8 @@
                 name: p.titulo,
                 tier: tierMap[p.tier] || 'Enterprise',
                 status: p.status,
-                gates: { current: parseInt(p.gate) || 1, total: 5 },
+                gate: p.gate,
+                gates: { current: parseGate(p.gate), total: 5 },
                 ksfs: { completed: 0, total: 5 },
                 descricao: p.descricao
             }));
@@ -860,7 +877,7 @@
                         <div class="project-name">${p.name}</div>
                         <div class="badges">
                             <span class="badge badge-${p.tier.toLowerCase()}">${p.tier}</span>
-                            <span class="badge badge-${p.status.toLowerCase().replace(' ', '')}">${p.status}</span>
+                            <span class="badge badge-${normalizeStatus(p.status).includes('conclu') || normalizeStatus(p.status).includes('completo') ? 'concluido' : normalizeStatus(p.status).includes('andamento') || normalizeStatus(p.status).includes('planejamento') ? 'ativo' : 'aguardando'}">${p.status}</span>
                         </div>
                     </div>
                     <div class="project-body">
@@ -995,9 +1012,13 @@
                 <p><strong>Status:</strong> ${project.status}</p>
                 <p><strong>Descrição:</strong> ${project.descricao || 'N/A'}</p>
                 <p><strong>Tier:</strong> ${project.tier}</p>
-                <p><strong>Gates:</strong> ${project.gates?.current || 0}/${project.gates?.total || 5}</p>
+                <p><strong>Gate Atual:</strong> ${project.gate || 'N/A'}</p>
                 <p><strong>KSFs:</strong> ${project.ksfs?.completed || 0}/${project.ksfs?.total || 5}</p>
-                <p><strong>Última atualização:</strong> ${project.lastUpdate ? new Date(project.lastUpdate).toLocaleString() : '-'}</p>
+                <div style="margin-top: 1rem;"><strong>Outputs:</strong></div>
+                <div style="margin-top: 0.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <a href="/api/download?file=docs/projetos/${project.id}/outputs/" class="btn btn-secondary btn-sm" target="_blank">📁 Ver Outputs</a>
+                </div>
+                <p style="margin-top: 1rem;"><strong>Última atualização:</strong> ${project.lastUpdate ? new Date(project.lastUpdate).toLocaleString() : '-'}</p>
             `;
             document.getElementById('details-modal').classList.add('active');
         }
