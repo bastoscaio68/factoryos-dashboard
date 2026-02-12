@@ -119,7 +119,7 @@ module.exports = async (req, res) => {
                         statusText = 'CONCLUIDO';
                         displayStatus = 'CONCLUIDO';
                         countConcluido++;
-                    } else if (statusLower.includes('andamento')) {
+                    } else if (statusLower.includes('andamento') || statusLower.includes('planejamento')) {
                         statusClass = 'badge-andamento';
                         statusText = 'EM ANDAMENTO';
                         displayStatus = 'ANDAMENTO';
