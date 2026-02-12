@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FactoryOS Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a1628;
+            --bg-secondary: #1a2d4a;
+            --bg-tertiary: rgba(10, 22, 40, 0.8);
+            --bg-card: rgba(10, 22, 40, 0.95);
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --text-muted: #718096;
+            --accent-blue: #00d4ff;
+            --accent-cyan: #00ffcc;
+            --accent-orange: #ff6b35;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border: rgba(0, 212, 255, 0.1);
+            --shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text { color: var(--text-primary); }
+        .logo-text span { color: var(--accent-cyan); }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-secondary);
+            padding: 0.35rem;
+            border-radius: var(--radius-md);
+        }
+
+        .tab {
+            padding: 0.6rem 1.25rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tab:hover { color: var(--text-primary); }
+        .tab.active {
+            background: var(--accent-blue);
+            color: var(--bg-primary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.25rem;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0, 255, 204, 0.3); }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover { background: var(--bg-tertiary); border-color: var(--accent-blue); }
+
+        /* Main Content */
+        .main {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section { display: none; }
+        .section.active { display: block; }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-4px);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Projects Grid */
+        .projects-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .projects-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-4px);
+        }
+
+        .project-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-id {
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge-lite { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+        .badge-medium { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+        .badge-enterprise { background: rgba(0, 212, 255, 0.2); color: var(--accent-blue); }
+        .badge-active { background: rgba(0, 212, 255, 0.2); color: var(--accent-blue); }
+        .badge-aguardando { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+        .badge-concluido { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+
+        .project-body {
+            padding: 1.25rem;
+        }
+
+        .progress-section { margin-bottom: 1rem; }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--bg-secondary);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .ksf-section {
+            margin-bottom: 1rem;
+        }
+
+        .ksf-title {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .ksf-list {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .ksf-item {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .ksf-yes { background: var(--success); }
+        .ksf-no { background: var(--bg-secondary); color: var(--text-muted); }
+
+        .project-footer {
+            padding: 1rem 1.25rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .project-updated {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.75rem;
+            font-size: 0.8rem;
+            border-radius: var(--radius-sm);
+        }
+
+        /* File Browser */
+        .file-browser {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .file-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .breadcrumb {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb-item {
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb-item:hover { color: var(--accent-blue); }
+        .breadcrumb-separator { color: var(--text-muted); }
+        .breadcrumb-current { color: var(--text-primary); }
+
+        .file-list {
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.3s;
+        }
+
+        .file-item:hover { background: rgba(0, 212, 255, 0.05); }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .file-icon { font-size: 1.25rem; }
+
+        .file-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .file-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-left: 0.5rem;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-blue);
+            color: var(--bg-primary);
+            border-color: var(--accent-blue);
+        }
+
+        .loading {
+            padding: 3rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover { background: var(--danger); color: white; }
+
+        .modal-body { padding: 1.5rem; }
+
+        .form-group { margin-bottom: 1.25rem; }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        .form-textarea { min-height: 100px; resize: vertical; }
+
+        .modal-footer {
+            padding: 1.25rem 1.5rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header { flex-direction: column; gap: 1rem; }
+            .tabs { width: 100%; justify-content: center; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">⚡</div>
+            <div class="logo-text">Factory<span>OS</span></div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="projects">📊</button>
+            <button class="tab" data-tab="files">📁</button>
+            <button class="tab" data-tab="manual">📖</button>
+        </div>
+
+        <div class="header-actions">
+            <button class="btn btn-secondary" onclick="refreshData()">🔄</button>
+            <button class="btn btn-primary" onclick="openNewProjectModal()">+ Novo Projeto</button>
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- Projects Section -->
+        <section id="projects-section" class="section active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-ativos">-</div>
+                    <div class="stat-label">Projetos Ativos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-aguardando">-</div>
+                    <div class="stat-label">Aguardando</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-concluidos">-</div>
+                    <div class="stat-label">Concluídos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-total">-</div>
+                    <div class="stat-label">Total</div>
+                </div>
+            </div>
+
+            <div class="projects-header">
+                <h2 class="projects-title">Projetos</h2>
+                <div class="tabs" style="background: transparent; padding: 0;">
+                    <button class="tab active" data-filter="todos">Todos</button>
+                    <button class="tab" data-filter="ativos">Ativos</button>
+                    <button class="tab" data-filter="aguardando">Aguardando</button>
+                    <button class="tab" data-filter="concluidos">Concluídos</button>
+                </div>
+            </div>
+
+            <div class="projects-grid" id="projects-grid">
+                <div class="loading">Carregando projetos...</div>
+            </div>
+        </section>
+
+        <!-- Files Section -->
+        <section id="files-section" class="section">
+            <div class="projects-header">
+                <h2 class="projects-title">📁 Arquivos</h2>
+            </div>
+
+            <div class="file-browser">
+                <div class="file-header">
+                    <div class="breadcrumb" id="breadcrumb">
+                        <span class="breadcrumb-item" onclick="navigateTo('')">docs/projetos</span>
+                    </div>
+                    <button class="btn btn-secondary btn-sm" onclick="navigateTo('')">🔄 Atualizar</button>
+                </div>
+                <div class="file-list" id="file-list">
+                    <div class="loading">Carregando arquivos...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Manual Section -->
+        <section id="manual-section" class="section">
+            <div class="projects-header">
+                <h2 class="projects-title">📖 Manual</h2>
+            </div>
+            <div class="stat-card" style="text-align: center; padding: 3rem;">
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Manual completo do FactoryOS Dashboard</p>
+                <a href="MANUAL.html" target="_blank" class="btn btn-primary">📖 Abrir Manual</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Novo Projeto -->
+    <div class="modal-overlay" id="new-project-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Novo Projeto</h3>
+                <button class="modal-close" onclick="closeNewProjectModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Nome do Projeto</label>
+                    <input type="text" class="form-input" id="project-name" placeholder="Ex: Análise de Mercado">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tier</label>
+                    <select class="form-select" id="project-tier">
+                        <option value="LITE">LITE</option>
+                        <option value="MEDIUM">MEDIUM</option>
+                        <option value="ENTERPRISE">ENTERPRISE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Departamento</label>
+                    <select class="form-select" id="project-dept">
+                        <option value="INTERNAL">INTERNAL</option>
+                        <option value="SALES">SALES</option>
+                        <option value="MARKETING">MARKETING</option>
+                        <option value="ENGINEERING">ENGINEERING</option>
+                        <option value="TRADING">TRADING</option>
+                        <option value="FINANCE">FINANCE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Objetivo</label>
+                    <textarea class="form-textarea" id="project-objective" placeholder="Descreva o objetivo do projeto..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Prazo</label>
+                    <input type="date" class="form-input" id="project-deadline">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeNewProjectModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="createProject()">Criar Projeto</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detalhes -->
+    <div class="modal-overlay" id="details-modal">
+        <div class="modal" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3 class="modal-title" id="detail-title">PROJ-XXX</h3>
+                <button class="modal-close" onclick="closeDetailsModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="detail-body">
+                <!-- Content -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeDetailsModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>📊 FactoryOS Dashboard | Atualizado: <span id="last-updated">-</span></p>
+    </footer>
+
+    <script>
+        // State
+        let currentPath = 'docs/projetos';
+        let projects = [];
+        let currentFilter = 'todos';
+
+        // Icons
+        const fileIcons = {
+            'md': '📝', 'js': '📜', 'html': '⚙️', 'css': '🎨',
+            'json': '📋', 'sh': '🔧', 'png': '🖼️', 'jpg': '🖼️',
+            'pdf': '📕', 'zip': '📦', 'default': '📄'
+        };
+
+        // API Base
+        const API_BASE = ''; // Same domain on Vercel
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initTabs();
+            initFilters();
+            loadProjects();
+            loadFiles();
+            autoRefresh();
+        });
+
+        // Tabs
+        function initTabs() {
+            document.querySelectorAll('.tabs .tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.dataset.tab;
+                    if (target) {
+                        document.querySelectorAll('.tabs .tab, .section').forEach(el => {
+                            el.classList.remove('active');
+                        });
+                        tab.classList.add('active');
+                        document.getElementById(`${target}-section`).classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // Filters
+        function initFilters() {
+            document.querySelectorAll('[data-filter]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentFilter = btn.dataset.filter;
+                    document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderProjects();
+                });
+            });
+        }
+
+        // Load Projects
+        async function loadProjects() {
+            try {
+                const response = await fetch(`${API_BASE}/projetos`);
+                if (response.ok) {
+                    projects = await response.json();
+                } else {
+                    projects = getMockProjects();
+                }
+                renderProjects();
+                updateStats();
+            } catch (e) {
+                projects = getMockProjects();
+                renderProjects();
+                updateStats();
+            }
+        }
+
+        // Load Files
+        async function loadFiles() {
+            const container = document.getElementById('file-list');
+            container.innerHTML = '<div class="loading">Carregando arquivos...</div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/arquivos?path=${encodeURIComponent(currentPath)}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    renderFiles(data);
+                } else {
+                    container.innerHTML = '<div class="loading">API não disponível. Configure o servidor.</div>';
+                }
+            } catch (e) {
+                container.innerHTML = '<div class="loading">Erro ao carregar arquivos. Tente novamente.</div>';
+            }
+        }
+
+        // Render Projects
+        function renderProjects() {
+            const grid = document.getElementById('projects-grid');
+            const filtered = projects.filter(p => {
+                if (currentFilter === 'todos') return true;
+                return p.status.toLowerCase().replace(' ', '') === currentFilter;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div class="loading">Nenhum projeto encontrado.</div>';
+                return;
+            }
+
+            grid.innerHTML = filtered.map(p => `
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-id">${p.id}</div>
+                        <div class="project-name">${p.name}</div>
+                        <div class="badges">
+                            <span class="badge badge-${p.tier.toLowerCase()}">${p.tier}</span>
+                            <span class="badge badge-${p.status.toLowerCase().replace(' ', '')}">${p.status}</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <div class="progress-section">
+                            <div class="progress-label">
+                                <span>Gates</span>
+                                <span>${p.gates?.current || 0}/${p.gates?.total || 5}</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${((p.gates?.current || 0) / (p.gates?.total || 5)) * 100}%"></div>
+                            </div>
+                        </div>
+                        <div class="ksf-section">
+                            <div class="ksf-title">KSFs</div>
+                            <div class="ksf-list">
+                                ${Array(5).fill(0).map((_, i) => `
+                                    <div class="ksf-item ${i < (p.ksfs?.completed || 0) ? 'ksf-yes' : 'ksf-no'}">
+                                        ${i < (p.ksfs?.completed || 0) ? '✓' : '×'}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-footer">
+                        <div class="project-updated">${p.lastUpdate ? new Date(p.lastUpdate).toLocaleString() : '-'}</div>
+                        <div class="project-actions">
+                            <button class="btn btn-secondary btn-sm" onclick="viewDetails('${p.id}')">Ver Detalhes</button>
+                            <button class="btn btn-secondary btn-sm" onclick="editStatus('${p.id}')">Editar</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Files
+        function renderFiles(data) {
+            const container = document.getElementById('file-list');
+            const breadcrumb = document.getElementById('breadcrumb');
+
+            // Breadcrumb
+            const parts = currentPath.split('/').filter(Boolean);
+            let breadcrumbHtml = '<span class="breadcrumb-item" onclick="navigateTo(\'\')">docs/projetos</span>';
+            let pathSoFar = '';
+            parts.forEach(part => {
+                pathSoFar += '/' + part;
+                breadcrumbHtml += `<span class="breadcrumb-separator">/</span><span class="breadcrumb-item" onclick="navigateTo('${pathSoFar.slice(1)}')">${part}</span>`;
+            });
+            breadcrumb.innerHTML = breadcrumbHtml;
+
+            // Files
+            let html = '';
+
+            if (data.folders?.length) {
+                data.folders.forEach(f => {
+                    html += `
+                        <div class="file-item">
+                            <div class="file-info">
+                                <span class="file-icon">📁</span>
+                                <span class="file-name">${f.name}</span>
+                            </div>
+                            <div class="file-actions">
+                                <button class="btn-icon" onclick="navigateTo('${f.path}')">📂</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            if (data.files?.length) {
+                data.files.forEach(f => {
+                    const ext = f.name.split('.').pop().toLowerCase();
+                    const icon = fileIcons[ext] || fileIcons.default;
+                    html += `
+                        <div class="file-item">
+                            <div class="file-info">
+                                <span class="file-icon">${icon}</span>
+                                <span class="file-name">${f.name}</span>
+                                <span class="file-meta">${f.size || ''}</span>
+                            </div>
+                            <div class="file-actions">
+                                <button class="btn-icon" onclick="downloadFile('${f.path}')" title="Download">⬇️</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            if (!html) {
+                html = '<div class="loading">Pasta vazia.</div>';
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Navigate
+        function navigateTo(path) {
+            currentPath = path;
+            loadFiles();
+        }
+
+        // Download
+        function downloadFile(path) {
+            window.open(`${API_BASE}/arquivos/${path}`, '_blank');
+        }
+
+        // Update Stats
+        function updateStats() {
+            document.getElementById('stat-ativos').textContent = projects.filter(p => p.status === 'Em Andamento').length;
+            document.getElementById('stat-aguardando').textContent = projects.filter(p => p.status === 'Aguardando').length;
+            document.getElementById('stat-concluidos').textContent = projects.filter(p => p.status === 'Concluído').length;
+            document.getElementById('stat-total').textContent = projects.length;
+        }
+
+        // Modals
+        function openNewProjectModal() {
+            document.getElementById('new-project-modal').classList.add('active');
+        }
+
+        function closeNewProjectModal() {
+            document.getElementById('new-project-modal').classList.remove('active');
+        }
+
+        function viewDetails(id) {
+            const project = projects.find(p => p.id === id);
+            if (!project) return;
+
+            document.getElementById('detail-title').textContent = project.id;
+            document.getElementById('detail-body').innerHTML = `
+                <p><strong>Nome:</strong> ${project.name}</p>
+                <p><strong>Status:</strong> ${project.status}</p>
+                <p><strong>Tier:</strong> ${project.tier}</p>
+                <p><strong>Gates:</strong> ${project.gates?.current || 0}/${project.gates?.total || 5}</p>
+                <p><strong>KSFs:</strong> ${project.ksfs?.completed || 0}/${project.ksfs?.total || 5}</p>
+                <p><strong>Última atualização:</strong> ${project.lastUpdate ? new Date(project.lastUpdate).toLocaleString() : '-'}</p>
+            `;
+            document.getElementById('details-modal').classList.add('active');
+        }
+
+        function closeDetailsModal() {
+            document.getElementById('details-modal').classList.remove('active');
+        }
+
+        function editStatus(id) {
+            alert('Funcionalidade de edição em desenvolvimento.');
+        }
+
+        // Create Project
+        async function createProject() {
+            const name = document.getElementById('project-name').value;
+            if (!name) return alert('Nome é obrigatório.');
+
+            // Here you would POST to API
+            alert('Projeto criado! (Mock)');
+            closeNewProjectModal();
+        }
+
+        // Refresh
+        function refreshData() {
+            loadProjects();
+            loadFiles();
+            document.getElementById('last-updated').textContent = new Date().toLocaleString();
+        }
+
+        // Auto Refresh
+        function autoRefresh() {
+            setInterval(refreshData, 30000);
+        }
+
+        // Mock Data
+        function getMockProjects() {
+            return [
+                { id: 'PROJ-003', name: 'FactoryOS Dashboard', tier: 'ENTERPRISE', status: 'Em Andamento', gates: { current: 3, total: 5 }, ksfs: { completed: 3, total: 5 }, lastUpdate: new Date().toISOString() },
+                { id: 'PROJ-002', name: 'Melhoria da Qualidade Visual', tier: 'ENTERPRISE', status: 'Concluído', gates: { current: 5, total: 5 }, ksfs: { completed: 6, total: 6 }, lastUpdate: '2026-02-12T06:47:00Z' },
+                { id: 'PROJ-001', name: 'Procedure Check + Marketing', tier: 'ENTERPRISE', status: 'Concluído', gates: { current: 5, total: 5 }, ksfs: { completed: 4, total: 4 }, lastUpdate: '2026-02-12T06:33:00Z' }
+            ];
+        }
+
+        // Close modals on click outside
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.classList.remove('active');
+            });
+        });
+
+        // Keyboard
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+            }
+        });
+    </script>
+</body>
+</html>

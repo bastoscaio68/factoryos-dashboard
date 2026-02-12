@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FactoryOS - Fluxo de Metodologia</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #1a2d4a 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #00d4ff;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #a0aec0;
+            margin-bottom: 40px;
+        }
+        .flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            align-items: center;
+        }
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .box {
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            min-width: 140px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+        .box:hover { transform: scale(1.05); }
+        .box-user { background: #00d4ff; color: #0a1628; }
+        .box-template { background: #ffd700; color: #0a1628; }
+        .box-brain { background: #8b5cf6; color: #fff; }
+        .box-exec { background: #10b981; color: #fff; }
+        .box-qa { background: #f59e0b; color: #0a1628; }
+        .box-decision { 
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #fff;
+            transform: rotate(0deg);
+        }
+        .box-complete { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+        .arrow {
+            font-size: 2rem;
+            color: #00d4ff;
+            animation: bounce 1s infinite;
+        }
+        .arrow-down {
+            font-size: 2rem;
+            color: #00d4ff;
+            margin: 5px 0;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .decision-box {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #fff;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+        }
+        .yes-no {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .yes {
+            background: #10b981;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        .no {
+            background: #ef4444;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        .loop {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(16, 185, 129, 0.2);
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: 2px dashed #10b981;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #00d4ff;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ FactoryOS</h1>
+        <p class="subtitle">Metodologia de Projeto com Melhoria Contínua</p>
+        
+        <div class="flow">
+            <!-- Linha 1: Início -->
+            <div class="row">
+                <div class="box box-user">👤 Solicitante</div>
+                <span class="arrow">→</span>
+                <div class="box box-template">📋 Template</div>
+                <span class="arrow">→</span>
+                <div class="box box-brain">🧠 Brain</div>
+            </div>
+            
+            <span class="arrow-down">↓</span>
+            
+            <!-- Gate Zero -->
+            <div class="row">
+                <div class="decision-box">GATE ZERO<br><small>Informações completas?</small></div>
+            </div>
+            
+            <div class="row" style="margin-top: 20px;">
+                <div class="yes-no">
+                    <div>
+                        <span class="no">❌ NÃO</span>
+                        <span class="arrow-down">↓</span>
+                        <div class="box box-template">Retorna + Info</div>
+                    </div>
+                    <div>
+                        <span class="yes">✅ SIM</span>
+                        <span class="arrow-down">↓</span>
+                        <div class="box box-exec">🚀 Execução</div>
+                    </div>
+                </div>
+            </div>
+            
+            <span class="arrow-down">↓</span>
+            
+            <!-- Execução -->
+            <div class="row">
+                <div class="box box-exec">Executores</div>
+                <span class="arrow">→</span>
+                <div class="box box-qa">✓ QA Quality</div>
+            </div>
+            
+            <span class="arrow-down">↓</span>
+            
+            <!-- Consenso -->
+            <div class="row">
+                <div class="decision-box">🎯 CONSENSO<br><small>Brain + QA + Especialistas</small></div>
+            </div>
+            
+            <div class="row" style="margin-top: 20px;">
+                <div class="yes-no">
+                    <div>
+                        <span class="yes">✅ BOM</span>
+                        <span class="arrow-down">↓</span>
+                        <div class="box box-complete">🎉 COMPLETO</div>
+                    </div>
+                    <div>
+                        <span class="loop">
+                            <span class="no">🔄 MELHORAR</span>
+                            <span class="arrow">↩</span>
+                            <span class="box box-exec" style="min-width: 100px;">Execução</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer">
+                ♻️ Melhoria Contínua<br>
+                <small style="color: #a0aec0; font-weight: normal;">O ciclo continua até a excelência</small>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

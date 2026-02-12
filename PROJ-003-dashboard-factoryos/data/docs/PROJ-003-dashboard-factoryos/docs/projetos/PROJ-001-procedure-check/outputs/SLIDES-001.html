@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FactoryOS - Material de Apresentação</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+    <style>
+        :root {
+            --deep-ocean: #0a1628;
+            --electric-blue: #00d4ff;
+            --neon-cyan: #00ffcc;
+            --text-light: #ffffff;
+            --text-muted: #a0aec0;
+        }
+
+        .reveal-viewport {
+            background: var(--deep-ocean);
+            background-image: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(0, 255, 204, 0.08) 0%, transparent 50%);
+        }
+
+        .reveal {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-light);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3 {
+            font-weight: 700;
+            color: var(--electric-blue);
+            text-transform: none;
+            letter-spacing: -0.02em;
+        }
+
+        .reveal h1 { font-size: 3.5em; }
+        .reveal h2 { font-size: 2.5em; margin-bottom: 0.8em; }
+        .reveal h3 { font-size: 1.8em; color: var(--neon-cyan); }
+
+        .reveal p, .reveal li {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+
+        .reveal code, .reveal pre {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+        }
+
+        .reveal .accent {
+            color: var(--neon-cyan);
+            font-weight: 600;
+        }
+
+        .reveal .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(0, 255, 204, 0.1));
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 2em;
+            margin: 1em 0;
+        }
+
+        .reveal .stat-card {
+            background: rgba(0, 212, 255, 0.08);
+            border-left: 4px solid var(--electric-blue);
+            padding: 1.5em;
+            margin: 1em 0;
+            text-align: left;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .reveal .stat-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .reveal .stat-label {
+            color: var(--text-muted);
+            font-size: 1em;
+        }
+
+        .reveal .cta-button {
+            background: linear-gradient(135deg, var(--electric-blue), var(--neon-cyan));
+            color: var(--deep-ocean);
+            padding: 1em 2.5em;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.3em;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1em;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .reveal .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.4);
+        }
+
+        .reveal .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5em;
+            margin-top: 2em;
+        }
+
+        .reveal .feature-item {
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: 1.5em;
+            text-align: left;
+        }
+
+        .reveal .feature-icon {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+
+        .reveal .slide-section {
+            position: absolute;
+            bottom: 2em;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .reveal .logo-placeholder {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--electric-blue), var(--neon-cyan));
+            border-radius: 20px;
+            margin: 0 auto 2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--deep-ocean);
+        }
+
+        .reveal .client-logo {
+            width: 80%;
+            max-width: 200px;
+            height: 60px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1em auto;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .reveal ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .reveal ul li::before {
+            content: "→";
+            color: var(--neon-cyan);
+            margin-right: 0.8em;
+            font-weight: bold;
+        }
+
+        .reveal .progress {
+            color: var(--electric-blue);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SEÇÃO 1: TÍTULO/HERO -->
+            <section>
+                <div class="logo-placeholder">F</div>
+                <h1>Da Ideia ao Sistema. Escale Sem Escalar a Equipe.</h1>
+                <h3>FactoryOS: Engenharia Técnica, Conteúdo Digital e Operações Financeiras — Tudo Sob o Mesmo Teto.</h3>
+                <p style="color: var(--text-muted); margin-top: 2em;">
+                    Você não precisa de mais contratações para crescer. Precisa de sistemas que trabalham por você. FactoryOS entrega as três áreas críticas do seu negócio de forma integrada.
+                </p>
+                <a href="#" class="cta-button">Agende uma consultoria estratégica</a>
+                <p style="font-size: 0.9em; margin-top: 3em;">
+                    <span class="accent">FactoryOS</span> | Material de Apresentação | 2026
+                </p>
+            </section>
+
+            <!-- SEÇÃO 2: O PROBLEMA -->
+            <section>
+                <h2>Crescer Sozinho Tem Limites</h2>
+                <div class="highlight-box">
+                    <p>Founder solo enfrenta três gargalos: 1) Engenharia fragmentada (dívida técnica); 2) Conteúdo inconsistente; 3) Operações financeiras caóticas.</p>
+                </div>
+                <ul style="margin-top: 2em;">
+                    <li>Engenharia fragmentada — código mal estruturado</li>
+                    <li>Conteúdo inconsistente — presença digital esporádica</li>
+                    <li>Operações financeiras caóticas — contabilidade reativa</li>
+                </ul>
+                <a href="#" class="cta-button">Diagnostique seus gargalos</a>
+            </section>
+
+            <!-- SEÇÃO 3: A SOLUÇÃO -->
+            <section>
+                <h2>Um Só Parceiro. Três Áreas Críticas.</h2>
+                <div class="logo-placeholder" style="width: 80px; height: 80px; font-size: 1.8em; margin-bottom: 1em;">F</div>
+                <h3>FactoryOS</h3>
+                <p>FactoryOS é departments-as-a-service. Você contrata uma área ou as três, e recebe entrega enterprise com agilidade startup.</p>
+                <div class="highlight-box">
+                    <p><span class="accent">Sem onboarding de meses.</span> Há execução, comunicação direta e resultados mensuráveis.</p>
+                </div>
+                <a href="#" class="cta-button">Falar com um especialista</a>
+            </section>
+
+            <!-- SEÇÃO 4: ENGENHARIA TÉCNICA -->
+            <section>
+                <h2>Código Que Escala. Arquitetura Que Sustenta.</h2>
+                <p>Backend e frontend com padrões cloud-native, integração com RD Station, Shopify e Bling.</p>
+                <p>Código manutenível, testável e escalável.</p>
+                <div class="highlight-box">
+                    <p><span class="accent">Do MVP ao sistema de produção.</span> Treat your technical debt antes que ela te trate.</p>
+                </div>
+                <a href="#" class="cta-button">Solicitar auditoria técnica</a>
+            </section>
+
+            <!-- SEÇÃO 5: CONTEÚDO DIGITAL -->
+            <section>
+                <h2>Autoridade Que Converte. Presença Que Vende.</h2>
+                <p>Sua empresa precisa de presença digital consistente — não conteúdo por produzir, mas estratégia de conteúdo que gera leads qualificados.</p>
+                <p>Produzimos artigos técnicos otimizados para SEO, ghostwriting para LinkedIn e automações de marketing.</p>
+                <a href="#" class="cta-button">Ver estratégia de conteúdo</a>
+            </section>
+
+            <!-- SEÇÃO 6: OPERAÇÕES FINANCEIRAS -->
+            <section>
+                <h2>Números Sob Controle. Decisões Fundamentadas.</h2>
+                <p>Contabilidade não precisa ser dor de cabeça.</p>
+                <div class="highlight-box">
+                    <p>Automação financeira com monthly reports. Fluxo de caixa projetado, análise de margem e compliance.</p>
+                </div>
+                <a href="#" class="cta-button">Agendar análise financeira</a>
+            </section>
+
+            <!-- SEÇÃO 7: ROI DEMONSTRÁVEL -->
+            <section>
+                <h2>Resultados Que Falam por Si</h2>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5em; margin-top: 2em;">
+                    <div class="stat-card">
+                        <div class="stat-number">40-60%</div>
+                        <div class="stat-label">Redução em custos operacionais</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">3x</div>
+                        <div class="stat-label">Time-to-market mais rápido</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">2-3x</div>
+                        <div class="stat-label">Mais leads qualificados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Surpresas financeiras</div>
+                    </div>
+                </div>
+                <a href="#" class="cta-button">Ver cases de sucesso</a>
+            </section>
+
+            <!-- SEÇÃO 8: CTA FINAL -->
+            <section>
+                <h2>Próximos Passos</h2>
+                <p>Seu próximo nível é sistematizar.</p>
+                <p>Escolha como quer começar:</p>
+                <div style="margin: 2em 0;">
+                    <a href="#" class="cta-button">Diagnóstico Expresso (Gratuito)</a>
+                    <a href="#" class="cta-button">Consultoria Estratégica (2h)</a>
+                    <a href="#" class="cta-button">Proposta Personalizada</a>
+                </div>
+                <div style="margin-top: 3em; font-size: 0.9em;">
+                    <p><span class="accent">Email:</span> contato@factoryos.com</p>
+                </div>
+                <p style="font-size: 0.7em; color: var(--text-muted); margin-top: 2em;">
+                    © 2026 FactoryOS. Todos os direitos reservados.
+                </p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t',
+            progress: true,
+            center: true,
+            transition: 'slide',
+            backgroundTransition: 'fade'
+        });
+    </script>
+</body>
+</html>
