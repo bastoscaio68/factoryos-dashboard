@@ -1,6 +1,6 @@
 # ÍNDICE DE PROJETOS — FactoryOS
 
-> Última atualização: 2026-02-12 19:31
+> Última atualização: 2026-02-12 19:56
 
 ---
 
@@ -10,6 +10,7 @@
 |----|------|--------|------|
 | PROJ-001-procedure-check | Procedure | ✅ CONCLUÍDO | CONCLUÍDO |
 | PROJ-004-trading-dashboard | Trading | 🔵 EM ANDAMENTO | EM_ANDAMENTO |
+| PROJ-005-teste | Teste | 🔵 EM ANDAMENTO | EXECUCAO |
 | PROJ-003 | FactoryOS Dashboard | ✅ CONCLUÍDO | QA Aprovado |
 | PROJ-002 | Melhoria da Qualidade Visual | ✅ CONCLUÍDO | Entrega |
 | PROJ-001 | Procedure Check + Marketing | ✅ CONCLUÍDO | Entrega |
@@ -20,9 +21,9 @@
 
 | Métrica | Valor |
 |---------|-------|
-| Total de Projetos | 2 |
+| Total de Projetos | 3 |
 | Concluídos | 1 |
-| Em Andamento | 1 |
+| Em Andamento | 2 |
 
 ---
 
