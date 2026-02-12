@@ -7,20 +7,7 @@
     },
     {
       "src": "*.html",
-      "use": "@vercel/static",
-      "config": {
-        "headers": [
-          {
-            "source": "/(.*)",
-            "headers": [
-              {
-                "key": "Cache-Control",
-                "value": "no-cache, no-store, must-revalidate"
-              }
-            ]
-          }
-        ]
-      }
+      "use": "@vercel/static"
     }
   ],
   "rewrites": [
