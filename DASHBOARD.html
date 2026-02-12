@@ -790,7 +790,7 @@
             const grid = document.getElementById('projects-grid');
             const filtered = projects.filter(p => {
                 if (currentFilter === 'todos') return true;
-                if (currentFilter === 'ativos') return (p.status === 'Em Andamento' || p.status === 'PLANEJAMENTO');
+                if (currentFilter === 'ativos') return (p.status.toUpperCase().includes('ANDAMENTO') || p.status.toUpperCase().includes('PLANEJAMENTO'));
                 return p.status.toLowerCase().replace(' ', '') === currentFilter;
             });
 
@@ -914,7 +914,7 @@
 
         // Update Stats
         function updateStats() {
-            document.getElementById('stat-ativos').textContent = projects.filter(p => p.status === 'Em Andamento' || p.status === 'PLANEJAMENTO').length;
+            document.getElementById('stat-ativos').textContent = projects.filter(p => p.status.toUpperCase().includes('ANDAMENTO') || p.status.toUpperCase().includes('PLANEJAMENTO')).length;
             document.getElementById('stat-aguardando').textContent = projects.filter(p => p.status === 'Aguardando').length;
             document.getElementById('stat-concluidos').textContent = projects.filter(p => p.status === 'CONCLUÍDO' || p.status === 'COMPLETO' || p.status === 'CONCLUIDO').length;
             document.getElementById('stat-total').textContent = projects.length;
