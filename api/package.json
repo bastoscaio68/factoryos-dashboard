@@ -1,0 +1,31 @@
+{
+  "name": "factoryos-dashboard-api",
+  "version": "1.0.0",
+  "description": "FactoryOS Dashboard API - Backend para CRUD de projetos",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node test.js"
+  },
+  "keywords": [
+    "factoryos",
+    "dashboard",
+    "api",
+    "projects",
+    "pdca"
+  ],
+  "author": "FactoryOS",
+  "license": "MIT",
+  "dependencies": {
+    "marked": "^9.1.0",
+    "yaml": "^2.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/factoryos/dashboard"
+  }
+}

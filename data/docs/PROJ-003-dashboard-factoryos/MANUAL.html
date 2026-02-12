@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual do FactoryOS Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-ocean: #0a1628;
+            --deep-ocean-light: #1a2d4a;
+            --electric-blue: #00d4ff;
+            --neon-cyan: #00ffcc;
+            --text-light: #ffffff;
+            --text-muted: #a0aec0;
+            --surface-1: rgba(10, 22, 40, 0.95);
+            --surface-2: rgba(10, 22, 40, 0.7);
+            --surface-glass: rgba(255, 255, 255, 0.05);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --accent-purple: #8b5cf6;
+            --accent-pink: #ec4899;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--deep-ocean);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--surface-1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--electric-blue);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--neon-cyan);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--electric-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(0, 255, 204, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--electric-blue), var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--electric-blue), var(--neon-cyan));
+            color: var(--deep-ocean);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 255, 204, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--surface-glass);
+            color: var(--text-light);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--electric-blue);
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--electric-blue);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        section h2::before {
+            content: '';
+            width: 4px;
+            height: 2rem;
+            background: linear-gradient(180deg, var(--electric-blue), var(--neon-cyan));
+            border-radius: 2px;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--surface-1);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(0, 212, 255, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--electric-blue), var(--neon-cyan));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--deep-ocean-light);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.7;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+        }
+
+        .code-comment {
+            color: var(--text-muted);
+        }
+
+        /* Steps */
+        .steps {
+            counter-reset: step;
+        }
+
+        .step {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .step::before {
+            counter-increment: step;
+            content: counter(step);
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--electric-blue), var(--neon-cyan));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+            color: var(--deep-ocean);
+        }
+
+        .step-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-content p {
+            color: var(--text-muted);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface-1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        th {
+            background: var(--surface-2);
+            font-weight: 600;
+            color: var(--electric-blue);
+        }
+
+        tr:hover {
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+        }
+
+        .badge-error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            section {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--deep-ocean);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--electric-blue), var(--neon-cyan));
+            border-radius: 4px;
+        }
+
+        /* Highlight */
+        .highlight {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            color: var(--electric-blue);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="#" class="logo">
+                ⚡ Factory<span>OS</span> Dashboard
+            </a>
+            <ul class="nav-links">
+                <li><a href="#instalacao">Instalação</a></li>
+                <li><a href="#uso">Como Usar</a></li>
+                <li><a href="#funcionalidades">Funcionalidades</a></li>
+                <li><a href="#api">API</a></li>
+                <li><a href="#deploy">Deploy</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>📊 FactoryOS Dashboard</h1>
+        <p>Uma plataforma web moderna para gestão visual de projetos do FactoryOS Multi-Agentes IA. Acesse de qualquer lugar, em tempo real.</p>
+        <div class="hero-buttons">
+            <a href="#instalacao" class="btn btn-primary">🚀 Começar</a>
+            <a href="https://github.com" class="btn btn-secondary">📖 Ver Código</a>
+        </div>
+    </header>
+
+    <section id="instalacao">
+        <h2>🛠️ Instalação</h2>
+        
+        <div class="steps">
+            <div class="step">
+                <div class="step-content">
+                    <h3>1. Clone o Repositório</h3>
+                    <p>Baixe ou clone o projeto para seu servidor local.</p>
+                    <pre><code>git clone https://github.com/factoryos/dashboard.git
+cd dashboard</code></pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-content">
+                    <h3>2. Instale as Dependências</h3>
+                    <p>O projeto usa Node.js. Instale globalmente ou localmente.</p>
+                    <pre><code># Usando npm (Node.js 18+)
+npm install
+
+# Ou usando Python (3.9+)
+pip install -r requirements.txt</code></pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-content">
+                    <h3>3. Configure o OpenClaw</h3>
+                    <p>Garanta que o OpenClaw está rodando e acessível.</p>
+                    <pre><code># Opcional: Configure a porta da API
+export API_PORT=3000
+
+# Inicie o servidor
+npm run dev</code></pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-content">
+                    <h3>4. Acesse o Dashboard</h3>
+                    <p>Abra no navegador:</p>
+                    <pre><code>http://localhost:3000
+
+# Ou para produção:
+https://factoryos-dashboard.vercel.app</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="uso">
+        <h2>📖 Como Usar</h2>
+        
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>Visualizar Projetos</h3>
+                <p>O dashboard mostra todos os projetos automaticamente. Use as abas para filtrar por status.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">➕</div>
+                <h3>Criar Novo Projeto</h3>
+                <p>Clique no botão "+ Novo Projeto" e preencha o formulário.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">✏️</div>
+                <h3>Editar Status</h3>
+                <p>Clique em "Editar" para atualizar o status de um projeto.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🔄</div>
+                <h3>Tempo Real</h3>
+                <p>Os dados atualizam automaticamente a cada 30 segundos.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📱</div>
+                <h3>Mobile-First</h3>
+                <p>O dashboard funciona perfeitamente em celulares e tablets.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🌐</div>
+                <h3>Acesso Remoto</h3>
+                <p>Publique no Vercel e acesse de qualquer lugar.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="funcionalidades">
+        <h2>⚡ Funcionalidades</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Funcionalidade</th>
+                    <th>Status</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>📊 Cards de Projetos</td>
+                    <td><span class="badge badge-success">✅ Pronto</span></td>
+                    <td>Visualização completa de cada projeto</td>
+                </tr>
+                <tr>
+                    <td>📈 Stats Agregados</td>
+                    <td><span class="badge badge-success">✅ Pronto</span></td>
+                    <td>Contagem por status</td>
+                </tr>
+                <tr>
+                    <td>🔍 Filtros</td>
+                    <td><span class="badge badge-success">✅ Pronto</span></td>
+                    <td>Todos / Ativos / Aguardando / Concluídos</td>
+                </tr>
+                <tr>
+                    <td>➕ Criar Projetos</td>
+                    <td><span class="badge badge-success">✅ Pronto</span></td>
+                    <td>Formulário completo</td>
+                </tr>
+                <tr>
+                    <td>✏️ Editar Status</td>
+                    <td><span class="badge badge-warning">⏳ Em breve</span></td>
+                    <td>Interface de edição</td>
+                </tr>
+                <tr>
+                    <td>🔄 Tempo Real</td>
+                    <td><span class="badge badge-warning">⏳ Em breve</span></td>
+                    <td>WebSocket</td>
+                </tr>
+                <tr>
+                    <td>👥 Multi-Usuário</td>
+                    <td><span class="badge badge-error">🔲 Planejado</span></td>
+                    <td>Autenticação</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="api">
+        <h2>🔌 API Reference</h2>
+        
+        <div class="card" style="margin-bottom: 1.5rem;">
+            <h3>GET /api/projetos</h3>
+            <p>Lista todos os projetos.</p>
+            <pre><code>// Response
+[
+  {
+    "id": "PROJ-001",
+    "name": "Procedure Check + Marketing Visual",
+    "tier": "ENTERPRISE",
+    "status": "concluido",
+    "lastUpdate": "2026-02-12T06:33:00Z",
+    "gates": { "current": 5, "total": 5 },
+    "ksfs": { "completed": 4, "total": 4 }
+  }
+]</code></pre>
+        </div>
+
+        <div class="card" style="margin-bottom: 1.5rem;">
+            <h3>GET /api/projetos/:id</h3>
+            <p>Retorna detalhes de um projeto específico.</p>
+            <pre><code>// Response
+{
+  "id": "PROJ-001",
+  "name": "Procedure Check + Marketing Visual",
+  "tier": "ENTERPRISE",
+  "status": "concluido",
+  "gate": 5,
+  "ksfs": [...],
+  "artefatos": [...],
+  "timeline": [...]
+}</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>POST /api/projetos</h3>
+            <p>Cria um novo projeto.</p>
+            <pre><code>// Request Body
+{
+  "name": "Novo Projeto",
+  "tier": "MEDIUM",
+  "department": "SALES",
+  "objective": "Descrição do objetivo...",
+  "deadline": "2026-02-20"
+}</code></pre>
+        </div>
+    </section>
+
+    <section id="deploy">
+        <h2>🚀 Deploy</h2>
+        
+        <div class="steps">
+            <div class="step">
+                <div class="step-content">
+                    <h3>1. Prepare o Código</h3>
+                    <p>Garanta que todos os arquivos estão commitados.</p>
+                    <pre><code>git add .
+git commit -m "Dashboard v1.0"
+git push origin main</code></pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-content">
+                    <h3>2. Deploy no Vercel</h3>
+                    <p>O deploy é automático e gratuito.</p>
+                    <pre><code># Instale o Vercel CLI (se necessário)
+npm i -g vercel
+
+# Deploy
+vercel --prod
+
+# URL gerada:
+# https://factoryos-dashboard.vercel.app</code></pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-content">
+                    <h3>3. Custom Domain (Opcional)</h3>
+                    <p>Configure um domínio próprio.</p>
+                    <pre><code>vercel domains add dashboard.factoryos.com
+vercel --prod --dns</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="requisitos">
+        <h2>📋 Requisitos</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Componente</th>
+                    <th>Versão Mínima</th>
+                    <th>Recomendado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Node.js</td>
+                    <td>18.0.0</td>
+                    <td>20.x LTS</td>
+                </tr>
+                <tr>
+                    <td>NPM</td>
+                    <td>9.0.0</td>
+                    <td>10.x</td>
+                </tr>
+                <tr>
+                    <td>Python (opcional)</td>
+                    <td>3.9</td>
+                    <td>3.11</td>
+                </tr>
+                <tr>
+                    <td>Navegador</td>
+                    <td>Chrome 80+</td>
+                    <td>Chrome 120+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="solucao-problemas">
+        <h2>🔧 Solução de Problemas</h2>
+        
+        <div class="cards-grid">
+            <div class="card">
+                <h3>❌ Dashboard não carrega</h3>
+                <p>Verifique se a API está rodando e acessível.</p>
+                <pre><code># Teste a API
+curl http://localhost:3000/api/projetos</code></pre>
+            </div>
+
+            <div class="card">
+                <h3>❌ CORS Error</h3>
+                <p>Configure os headers no servidor.</p>
+                <pre><code>Access-Control-Allow-Origin: *</code></pre>
+            </div>
+
+            <div class="card">
+                <h3>❌ Dados não atualizam</h3>
+                <p>Verifique a conexão com o servidor.</p>
+                <pre><code># Force refresh
+Ctrl+Shift+R (Hard Refresh)</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>📊 FactoryOS Dashboard v1.0</p>
+        <p style="margin-top: 0.5rem;">
+            <span class="badge badge-success">✅ Grátis</span>
+            <span class="badge badge-success" style="margin-left: 0.5rem;">🔒 Seguro</span>
+            <span class="badge badge-success" style="margin-left: 0.5rem;">⚡ Rápido</span>
+        </p>
+        <p style="margin-top: 1rem; font-size: 0.75rem;">
+            Parte do FactoryOS Multi-Agentes IA Ecosystem
+        </p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FactoryOS - Material de Apresentação Aprimorado</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :root {
+            --deep-ocean: #0a1628;
+            --electric-blue: #00d4ff;
+            --neon-cyan: #00ffcc;
+            --text-light: #ffffff;
+            --text-muted: #a0aec0;
+            --surface-1: rgba(10, 22, 40, 0.85);
+            --surface-2: rgba(10, 22, 40, 0.6);
+            --accent-purple: #8b5cf6;
+            --accent-pink: #ec4899;
+        }
+
+        .reveal-viewport {
+            background: var(--deep-ocean);
+            background-image: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(0, 255, 204, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+        }
+
+        .reveal {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-light);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3 {
+            font-weight: 700;
+            color: var(--text-light);
+            text-transform: none;
+            letter-spacing: -0.02em;
+        }
+
+        .reveal h1 { font-size: 3.2em; margin-bottom: 0.3em; }
+        .reveal h2 { font-size: 2.2em; margin-bottom: 0.6em; color: var(--electric-blue); }
+        .reveal h3 { font-size: 1.6em; color: var(--neon-cyan); margin-bottom: 0.5em; }
+
+        .reveal p, .reveal li {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+
+        .reveal code, .reveal pre {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+        }
+
+        .reveal .accent {
+            color: var(--neon-cyan);
+            font-weight: 600;
+        }
+
+        /* Cards com Profundidade */
+        .reveal .depth-card {
+            background: var(--surface-1);
+            border-radius: 16px;
+            padding: 1.5em;
+            margin: 0.8em 0;
+            box-shadow: 
+                0 4px 20px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(0, 212, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .reveal .depth-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 
+                0 8px 30px rgba(0, 212, 255, 0.2),
+                0 0 0 1px rgba(0, 212, 255, 0.2);
+        }
+
+        .reveal .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(0, 255, 204, 0.1));
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 16px;
+            padding: 1.5em;
+            margin: 1em 0;
+        }
+
+        .reveal .stat-card {
+            background: rgba(0, 212, 255, 0.08);
+            border-left: 4px solid var(--electric-blue);
+            padding: 1.2em;
+            margin: 0.6em 0;
+            text-align: left;
+            border-radius: 0 12px 12px 0;
+            transition: all 0.3s ease;
+        }
+
+        .reveal .stat-card:hover {
+            background: rgba(0, 212, 255, 0.15);
+            transform: translateX(8px);
+        }
+
+        .reveal .stat-number {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .reveal .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+
+        .reveal .cta-button {
+            background: linear-gradient(135deg, var(--electric-blue), var(--neon-cyan));
+            color: var(--deep-ocean);
+            padding: 0.8em 2em;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1em;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 0.8em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 255, 204, 0.3);
+        }
+
+        .reveal .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 255, 204, 0.5);
+        }
+
+        .reveal .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1em;
+            margin-top: 1.5em;
+        }
+
+        .reveal .feature-item {
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 14px;
+            padding: 1.2em;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .reveal .feature-item:hover {
+            background: rgba(0, 212, 255, 0.15);
+            border-color: rgba(0, 212, 255, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .reveal .feature-icon {
+            font-size: 1.8em;
+            margin-bottom: 0.3em;
+        }
+
+        .reveal .slide-section {
+            position: absolute;
+            bottom: 2em;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.65em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .reveal .logo-placeholder {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--electric-blue), var(--neon-cyan));
+            border-radius: 24px;
+            margin: 0 auto 1.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2em;
+            font-weight: 700;
+            color: var(--deep-ocean);
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        .reveal .client-logo {
+            width: 80%;
+            max-width: 180px;
+            height: 50px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.8em auto;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        .reveal ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .reveal ul li::before {
+            content: "→";
+            color: var(--neon-cyan);
+            margin-right: 0.6em;
+            font-weight: bold;
+        }
+
+        /* Ilustrações unDraw */
+        .reveal .undraw-illustration {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin: 1em auto;
+            display: block;
+            border-radius: 16px;
+            opacity: 0.9;
+        }
+
+        /* Ícones Phosphor/Heroicons */
+        .reveal .phosphor-icon {
+            display: inline-block;
+            width: 1.2em;
+            height: 1.2em;
+            vertical-align: middle;
+            margin-right: 0.3em;
+        }
+
+        /* Tags */
+        .reveal .tag {
+            display: inline-block;
+            padding: 0.2em 0.8em;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            font-size: 0.8em;
+            color: var(--accent-purple);
+            margin: 0.2em;
+        }
+
+        /* Progress indicators */
+        .reveal .progress {
+            color: var(--electric-blue);
+        }
+
+        /* Animations classes */
+        .reveal .gsap-fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .reveal .gsap-scale {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .reveal .gsap-stagger > * {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        /* Grid layouts */
+        .reveal .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1em;
+            margin-top: 1.5em;
+        }
+
+        .reveal .illustration-row {
+            display: flex;
+            justify-content: center;
+            gap: 2em;
+            margin: 1.5em 0;
+        }
+
+        .reveal .illustration-col {
+            flex: 1;
+            max-width: 350px;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SEÇÃO 1: TÍTULO/HERO -->
+            <section>
+                <div class="logo-placeholder gsap-scale">F</div>
+                <h1 class="gsap-fade-up">Da Ideia ao Sistema.<br>Escala Sem Escalar a Equipe.</h1>
+                <h3 class="gsap-fade-up">FactoryOS: Engenharia Técnica, Conteúdo Digital e Operações Financeiras — Tudo Sob o Mesmo Teto.</h3>
+                <p style="color: var(--text-muted); margin-top: 1.5em;" class="gsap-fade-up">
+                    Você não precisa de mais contratações para crescer. Precisa de sistemas que trabalham por você.
+                </p>
+                <a href="#" class="cta-button gsap-fade-up">Agende uma consultoria estratégica</a>
+                <p style="font-size: 0.85em; margin-top: 2em;" class="gsap-fade-up">
+                    <span class="accent">FactoryOS</span> | Material de Apresentação | 2026
+                </p>
+            </section>
+
+            <!-- SEÇÃO 2: O PROBLEMA (com ilustração) -->
+            <section>
+                <h2>Crescer Sozinho Tem Limites</h2>
+                <div class="illustration-row">
+                    <div class="illustration-col">
+                        <img src="https://raw.githubusercontent.com/kevintpeng/lite-youtube-embed/master/img/soc.png" 
+                             alt="Challenge illustration" 
+                             class="undraw-illustration"
+                             style="max-width: 300px;">
+                    </div>
+                    <div class="illustration-col" style="text-align: left;">
+                        <div class="depth-card">
+                            <h3>Founder solo enfrenta três gargalos:</h3>
+                            <ul>
+                                <li>Engenharia fragmentada — dívida técnica</li>
+                                <li>Conteúdo inconsistente — presença digital esporádica</li>
+                                <li>Operações financeiras caóticas — contabilidade reativa</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="cta-button">Diagnostique seus gargalos</a>
+            </section>
+
+            <!-- SEÇÃO 3: A SOLUÇÃO -->
+            <section>
+                <h2>Um Só Parceiro. Três Áreas Críticas.</h2>
+                <div class="logo-placeholder gsap-scale" style="width: 70px; height: 70px; font-size: 1.5em; margin-bottom: 0.8em;">F</div>
+                <h3>FactoryOS</h3>
+                <p>Departments-as-a-service. Você contrata uma área ou as três, e recebe entrega enterprise com agilidade startup.</p>
+                <div class="highlight-box">
+                    <p><span class="accent">Sem onboarding de meses.</span> Há execução, comunicação direta e resultados mensuráveis.</p>
+                </div>
+                <a href="#" class="cta-button">Falar com um especialista</a>
+            </section>
+
+            <!-- SEÇÃO 4: ENGENHARIA TÉCNICA -->
+            <section>
+                <h2>Código Que Escala. Arquitetura Que Sustenta.</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Cloud-Native</h3>
+                        <p>Backend e frontend com padrões modernos</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔗</div>
+                        <h3>Integrações</h3>
+                        <p>RD Station, Shopify, Bling e mais</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🧪</div>
+                        <h3>Testável</h3>
+                        <p>Código com testes automatizados</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📈</div>
+                        <h3>Escalável</h3>
+                        <p>Arquitetura preparada para crescer</p>
+                    </div>
+                </div>
+                <div class="depth-card" style="margin-top: 1.5em;">
+                    <p><span class="accent">Do MVP ao sistema de produção.</span> Treat your technical debt antes que ela te trate.</p>
+                </div>
+                <a href="#" class="cta-button">Solicitar auditoria técnica</a>
+            </section>
+
+            <!-- SEÇÃO 5: CONTEÚDO DIGITAL (com unDraw) -->
+            <section>
+                <h2>Autoridade Que Converte. Presença Que Vende.</h2>
+                <div class="illustration-row">
+                    <div class="illustration-col depth-card">
+                        <img src="https://raw.githubusercontent.com/kevintpeng/lite-youtube-embed/master/img/soc.png" 
+                             alt="Digital marketing illustration" 
+                             class="undraw-illustration">
+                        <div style="text-align: center; margin-top: 1em;">
+                            <span class="tag">SEO</span>
+                            <span class="tag">Ghostwriting</span>
+                            <span class="tag">Automação</span>
+                        </div>
+                    </div>
+                    <div class="illustration-col" style="text-align: left;">
+                        <ul>
+                            <li>Artigos técnicos otimizados para SEO</li>
+                            <li>Ghostwriting para LinkedIn</li>
+                            <li>Automações de marketing</li>
+                            <li>Estratégia de conteúdo completa</li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="#" class="cta-button">Ver estratégia de conteúdo</a>
+            </section>
+
+            <!-- SEÇÃO 6: OPERAÇÕES FINANCEIRAS -->
+            <section>
+                <h2>Números Sob Controle. Decisões Fundamentadas.</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">📊</div>
+                        <p>Automação financeira</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">📅</div>
+                        <p>Monthly reports</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">💰</div>
+                        <p>Fluxo de caixa projetado</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">✅</div>
+                        <p>Compliance</p>
+                    </div>
+                </div>
+                <div class="highlight-box">
+                    <p>Contabilidade não precisa ser dor de cabeça. <span class="accent">Números claros, decisões certas.</span></p>
+                </div>
+                <a href="#" class="cta-button">Agendar análise financeira</a>
+            </section>
+
+            <!-- SEÇÃO 7: ROI DEMONSTRÁVEL -->
+            <section>
+                <h2>Resultados Que Falam por Si</h2>
+                <div class="stats-grid">
+                    <div class="stat-card gsap-stagger">
+                        <div class="stat-number">40-60%</div>
+                        <div class="stat-label">Redução em custos operacionais</div>
+                    </div>
+                    <div class="stat-card gsap-stagger">
+                        <div class="stat-number">3x</div>
+                        <div class="stat-label">Time-to-market mais rápido</div>
+                    </div>
+                    <div class="stat-card gsap-stagger">
+                        <div class="stat-number">2-3x</div>
+                        <div class="stat-label">Mais leads qualificados</div>
+                    </div>
+                    <div class="stat-card gsap-stagger">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Surpresas financeiras</div>
+                    </div>
+                </div>
+                <a href="#" class="cta-button">Ver cases de sucesso</a>
+            </section>
+
+            <!-- SEÇÃO 8: CTA FINAL -->
+            <section>
+                <h2>Próximos Passos</h2>
+                <p>Seu próximo nível é sistematizar.</p>
+                <p>Escolha como quer começar:</p>
+                <div style="margin: 2em 0;">
+                    <a href="#" class="cta-button">Diagnóstico Expresso (Gratuito)</a>
+                    <a href="#" class="cta-button" style="background: transparent; border: 2px solid var(--electric-blue); color: var(--electric-blue);">Consultoria Estratégica (2h)</a>
+                    <a href="#" class="cta-button" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));">Proposta Personalizada</a>
+                </div>
+                <div style="margin-top: 2em; font-size: 0.9em;">
+                    <p><span class="accent">Email:</span> contato@factoryos.com</p>
+                </div>
+                <p style="font-size: 0.65em; color: var(--text-muted); margin-top: 1.5em;">
+                    © 2026 FactoryOS. Todos os direitos reservados.
+                </p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.min.js"></script>
+    <script src="https://unpkg.com/phosphor-icons@3.2.1"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t',
+            progress: true,
+            center: true,
+            transition: 'slide',
+            backgroundTransition: 'fade'
+        });
+
+        // GSAP Animations for Reveal.js
+        Reveal.on('slidechanged', event => {
+            // Animate elements on slide change
+            const slide = event.currentSlide;
+            
+            // Fade up animations
+            slide.querySelectorAll('.gsap-fade-up').forEach((el, index) => {
+                gsap.to(el, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    delay: index * 0.1,
+                    ease: 'power2.out'
+                });
+            });
+
+            // Scale animations
+            slide.querySelectorAll('.gsap-scale').forEach(el => {
+                gsap.to(el, {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.8,
+                    ease: 'back.out(1.7)'
+                });
+            });
+
+            // Stagger animations
+            slide.querySelectorAll('.gsap-stagger').forEach(container => {
+                gsap.to(container.querySelectorAll('.stat-card'), {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.5,
+                    stagger: 0.1,
+                    ease: 'power2.out'
+                });
+            });
+        });
+
+        // Initial animations for first slide
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hero animations
+            gsap.from('.logo-placeholder', {
+                scale: 0,
+                duration: 0.8,
+                ease: 'back.out(1.7)'
+            });
+
+            gsap.from('.gsap-fade-up', {
+                y: 30,
+                opacity: 0,
+                duration: 0.6,
+                stagger: 0.15,
+                ease: 'power2.out',
+                delay: 0.3
+            });
+        });
+
+        // Hover effects for cards
+        document.querySelectorAll('.stat-card, .feature-item, .depth-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card, {
+                    scale: 1.02,
+                    duration: 0.2,
+                    ease: 'power2.out'
+                });
+            });
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    scale: 1,
+                    duration: 0.2,
+                    ease: 'power2.out'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

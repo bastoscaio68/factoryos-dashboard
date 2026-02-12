@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["*.html"]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/api/dashboard.js"
+    },
+    {
+      "src": "/projetos",
+      "dest": "/api/dashboard.js?mode=projetos"
+    },
+    {
+      "src": "/arquivos",
+      "dest": "/api/dashboard.js?mode=arquivos"
+    },
+    {
+      "src": "/fluxograma",
+      "dest": "/api/fluxograma.js"
+    },
+    {
+      "src": "/api/download",
+      "dest": "/api/download.js"
+    }
+  ]
+}
