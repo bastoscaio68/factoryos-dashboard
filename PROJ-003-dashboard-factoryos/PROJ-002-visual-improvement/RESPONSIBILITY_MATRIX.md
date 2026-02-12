@@ -20,13 +20,13 @@
 
 | # | Fase / Entregável | Agente Owner | Input Necessário | Output / Artefato | Prazo | Status | Observações |
 |---|---|---|---|---|---|---|---|
-| 01 | Diagnóstico Visual | brain | Feedback do Caio | DIAGNOSTICO-VISUAL.md | D+0 | ⏳ | |
-| 02 | Catálogo de Ferramentas | ideation | - | FERRAMENTAS-CATALOG.md | D+0 | ⏳ | |
-| 03 | Custos e Budget | pricing_engine | FERRAMENTAS-CATALOG.md | BUDGET-DETALHADO.md | D+0 | ⏳ | |
-| 04 | Guia de Implementação | scope_parser | DIAGNOSTICO-VISUAL.md | GUIA-IMPLEMENTACAO.md | D+0 | ⏳ | |
-| 05 | Roadmap de Execução | scheduler | Todos acima | ROADMAP.md | D+0 | ⏳ | |
-| 06 | Templates de Exemplo | presentation_builder | GUIA-IMPLEMENTACAO.md | TEMPLATES-EXEMPLOS | D+1 | ⏳ | |
-| 07 | QA Final | quality_auditor | Todos artefatos | QA-REPORT.md | D+1 | ⏳ | |
+| 01 | Diagnóstico Visual | brain | Feedback do Caio | DIAGNOSTICO-VISUAL.md | D+0 | ✅ | |
+| 02 | Catálogo de Ferramentas | ideation | - | FERRAMENTAS-CATALOG.md | D+0 | ✅ | |
+| 03 | Custos e Budget | pricing_engine | FERRAMENTAS-CATALOG.md | BUDGET-DETALHADO.md | D+0 | ✅ | |
+| 04 | Guia de Implementação | scope_parser | DIAGNOSTICO-VISUAL.md | GUIA-IMPLEMENTACAO.md | D+0 | ✅ | |
+| 05 | Roadmap de Execução | scheduler | Todos acima | ROADMAP.md | D+0 | ✅ | |
+| 06 | Templates de Exemplo | presentation_builder | GUIA-IMPLEMENTACAO.md | TEMPLATES-EXEMPLOS | D+1 | ✅ | |
+| 07 | QA Final | quality_auditor | Todos artefatos | QA-REPORT.md | D+1 | ✅ | |
 
 ---
 

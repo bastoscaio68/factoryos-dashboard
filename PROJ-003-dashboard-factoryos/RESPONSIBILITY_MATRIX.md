@@ -20,12 +20,12 @@
 
 | # | Fase / Entregável | Agente Owner | Input Necessário | Output / Artefato | Prazo | Status | Observações |
 |---|---|---|---|---|---|---|---|
-| 01 | Design System | brand_system | Manual de marca | DESIGN-SYSTEM.md | D+0 | ⏳ | |
-| 02 | API Backend | scope_parser | DESIGN-SYSTEM.md | api/server.js | D+0 | ⏳ | |
-| 03 | Dashboard Frontend | presentation_builder | DESIGN-SYSTEM.md | DASHBOARD.html | D+0 | ⏳ | |
-| 04 | Manual HTML | ideation | Todos acima | MANUAL.html | D+0 | ⏳ | |
-| 05 | Script Deploy | scope_parser | API + Dashboard | deploy.sh | D+0 | ⏳ | |
-| 06 | QA Final | quality_auditor | Todos artefatos | QA-REPORT.md | D+0 | ⏳ | |
+| 01 | Design System | brand_system | Manual de marca | DESIGN-SYSTEM.md | D+0 | ✅ | |
+| 02 | API Backend | scope_parser | DESIGN-SYSTEM.md | api/server.js | D+0 | ✅ | |
+| 03 | Dashboard Frontend | presentation_builder | DESIGN-SYSTEM.md | DASHBOARD.html | D+0 | ✅ | |
+| 04 | Manual HTML | ideation | Todos acima | MANUAL.html | D+0 | ✅ | |
+| 05 | Script Deploy | scope_parser | API + Dashboard | deploy.sh | D+0 | ✅ | |
+| 06 | QA Final | quality_auditor | Todos artefatos | QA-REPORT.md | D+0 | ✅ | |
 
 ---
 

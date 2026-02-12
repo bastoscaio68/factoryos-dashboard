@@ -3,7 +3,7 @@ projeto_id: PROJ-003
 nome: FactoryOS Dashboard — Plataforma de Gestão Visual
 tier: ENTERPRISE
 fase: Gate 3 (QA Final)
-status: gate2_em_progresso
+status: concluido
 ultima_atualizacao: 2026-02-12 07:12
 atualizado_por: orquestrador
 ---

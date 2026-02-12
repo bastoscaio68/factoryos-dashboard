@@ -2,8 +2,8 @@
 projeto_id: PROJ-003-EXT
 nome: File Browser — Navegação e Download
 tier: ENTERPRISE
-fase: Completo
-status: gate3_aprovado
+fase: CONCLUÍDO
+status: concluido
 ultima_atualizacao: 2026-02-12 07:33
 ---
 
