@@ -213,7 +213,7 @@
 
     <script>
         var projects = [
-            {id: 'PROJ-004', name: 'Trading Dashboard Quantitativo', tier: 'ENTERPRISE', status: 'Em Validação QA', statusKey: 'aguardando', gate: 5, gatesTotal: 5, ksfs: {completed: 16, total: 16}, descricao: 'Dashboard inteligente para trading quantitativo com registro de trades, análise de performance, recomendações automáticas e integração com bots Pionex.', outputs: [], lastUpdate: '2026-02-12'},
+            {id: 'PROJ-004', name: 'Trading Dashboard Quantitativo', tier: 'ENTERPRISE', status: 'Em Validação QA', statusKey: 'aguardando', gate: 5, gatesTotal: 5, ksfs: {completed: 16, total: 16}, descricao: 'Dashboard inteligente para trading quantitativo com registro de trades, análise de performance, recomendações automáticas e integração com bots Pionex.', outputs: ['RD-001.md', 'DESIGN-001.md', 'MC-001.md', 'IA-ANALYST.md', 'INTEGRATION.md', 'bot_api.py', 'trade.py', 'dashboard.html'], lastUpdate: '2026-02-12'},
             {id: 'PROJ-003', name: 'FactoryOS Dashboard', tier: 'ENTERPRISE', status: 'Concluído', statusKey: 'concluido', gate: 5, gatesTotal: 5, ksfs: {completed: 5, total: 5}, descricao: 'Plataforma web para gestão visual de todos os projetos do FactoryOS, com monitoramento em tempo real, status de gates e KSFs.', outputs: ['DASHBOARD.html', 'MANUAL.html', 'DESIGN-SYSTEM.md'], lastUpdate: '2026-02-12'},
             {id: 'PROJ-002', name: 'Melhoria da Qualidade Visual', tier: 'ENTERPRISE', status: 'Concluído', statusKey: 'concluido', gate: 5, gatesTotal: 5, ksfs: {completed: 6, total: 6}, descricao: 'Diagnóstico e plano de ação para melhorar a qualidade visual do ecossistema FactoryOS, incluindo Design System e roadmap de implementação.', outputs: ['SLIDES-001-MELHORADO.html', 'ROADMAP.md', 'BUDGET-DETALHADO.md'], lastUpdate: '2026-02-12'},
             {id: 'PROJ-001', name: 'Procedure Check + Marketing', tier: 'ENTERPRISE', status: 'Concluído', statusKey: 'concluido', gate: 5, gatesTotal: 5, ksfs: {completed: 4, total: 4}, descricao: 'Procedure check completo de todos os 26 agentes do FactoryOS e produção de material de marketing visual inicial.', outputs: ['SLIDES-001.html', 'BRAIN-VALIDACAO.md', 'PRICING-BREAKDOWN.md'], lastUpdate: '2026-02-12'}
@@ -281,11 +281,16 @@
         function closeProjectDetails() { var m = document.getElementById('project-details-modal'); if (m) m.remove(); }
 
         function downloadOutput(project, filename) {
-            var paths = {'PROJ-001': 'docs/projetos/PROJ-001-procedure-check/outputs/' + filename, 'PROJ-002': 'docs/projetos/PROJ-002-visual-improvement/outputs/' + filename, 'PROJ-003': 'docs/projetos/PROJ-003-dashboard-factoryos/' + filename};
+            var paths = {
+                'PROJ-001': 'PROJ-003-dashboard-factoryos/PROJ-001-procedure-check/outputs/' + filename,
+                'PROJ-002': 'PROJ-003-dashboard-factoryos/PROJ-002-visual-improvement/outputs/' + filename,
+                'PROJ-003': 'PROJ-003-dashboard-factoryos/' + filename,
+                'PROJ-004': 'PROJ-004-trading-dashboard/' + filename
+            };
             window.open(paths[project], '_blank');
         }
 
-        function downloadMeeting(filename) { window.open('docs/projetos/REUNIOES/' + filename + '.md', '_blank'); }
+        function downloadMeeting(filename) { window.open('REUNIOES/' + filename + '.md', '_blank'); }
 
         initTabs();
         renderProjects();
