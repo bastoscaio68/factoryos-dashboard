@@ -3,543 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FactoryOS Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <title>FactoryOS Dashboard v2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0a1628;
-            --bg-secondary: #1a2d4a;
-            --bg-tertiary: rgba(10, 22, 40, 0.8);
-            --bg-card: rgba(10, 22, 40, 0.95);
+            --bg-secondary: #0f1f35;
+            --bg-tertiary: #152a47;
+            --bg-card: rgba(15, 31, 53, 0.95);
             --text-primary: #ffffff;
-            --text-secondary: #a0aec0;
-            --text-muted: #718096;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.5);
             --accent-blue: #00d4ff;
             --accent-cyan: #00ffcc;
-            --accent-orange: #ff6b35;
+            --accent-purple: #a855f7;
             --success: #10b981;
             --warning: #f59e0b;
-            --danger: #ef4444;
-            --border: rgba(0, 212, 255, 0.1);
-            --shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            --border: rgba(0, 212, 255, 0.15);
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 20px;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-        }
-
-        /* Header */
-        .header {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .logo-text { color: var(--text-primary); }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; }
+        .header { background: rgba(10, 22, 40, 0.95); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .logo { display: flex; align-items: center; gap: 0.75rem; font-size: 1.5rem; font-weight: 700; }
+        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
         .logo-text span { color: var(--accent-cyan); }
-
-        .tabs {
-            display: flex;
-            gap: 0.5rem;
-            background: var(--bg-secondary);
-            padding: 0.35rem;
-            border-radius: var(--radius-md);
-        }
-
-        .tab {
-            padding: 0.6rem 1.25rem;
-            border: none;
-            background: transparent;
-            color: var(--text-secondary);
-            cursor: pointer;
-            border-radius: var(--radius-sm);
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .tab:hover { color: var(--text-primary); }
-        .tab.active {
-            background: var(--accent-blue);
-            color: var(--bg-primary);
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 0.75rem;
-        }
-
-        .btn {
-            padding: 0.6rem 1.25rem;
-            border: none;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
-            color: var(--bg-primary);
-        }
-
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0, 255, 204, 0.3); }
-
-        .btn-secondary {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover { background: var(--bg-tertiary); border-color: var(--accent-blue); }
-
-        /* Main Content */
-        .main {
-            padding: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
+        .nav-tabs { display: flex; gap: 0.5rem; background: rgba(15, 31, 53, 0.9); padding: 0.35rem; border-radius: var(--radius-md); border: 1px solid var(--border); }
+        .nav-tab { padding: 0.6rem 1.25rem; border: none; background: transparent; color: var(--text-secondary); cursor: pointer; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 500; transition: all 0.3s; display: flex; align-items: center; gap: 0.5rem; }
+        .nav-tab:hover { color: var(--text-primary); background: rgba(0, 212, 255, 0.1); }
+        .nav-tab.active { background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); color: var(--bg-primary); }
+        .btn { padding: 0.6rem 1.25rem; border: none; border-radius: var(--radius-sm); cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); color: var(--bg-primary); }
+        .btn-secondary { background: rgba(15, 31, 53, 0.9); color: var(--text-primary); border: 1px solid var(--border); }
+        .btn-secondary:hover { background: rgba(0, 212, 255, 0.1); border-color: var(--accent-blue); }
+        .btn-sm { padding: 0.4rem 0.75rem; font-size: 0.8rem; }
+        .main { padding: 2rem; max-width: 1400px; margin: 0 auto; }
         .section { display: none; }
         .section.active { display: block; }
-
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 1.5rem;
-            transition: all 0.3s;
-        }
-
-        .stat-card:hover {
-            border-color: var(--accent-blue);
-            transform: translateY(-4px);
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-top: 0.25rem;
-        }
-
-        /* Projects Grid */
-        .projects-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .projects-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .project-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        .project-card:hover {
-            border-color: var(--accent-blue);
-            transform: translateY(-4px);
-        }
-
-        .project-header {
-            padding: 1.25rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .project-id {
-            font-size: 0.75rem;
-            color: var(--accent-cyan);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .project-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-
-        .badges {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-
-        .badge-lite { background: rgba(16, 185, 129, 0.2); color: #34d399; }
-        .badge-medium { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
-        .badge-enterprise { background: rgba(0, 212, 255, 0.2); color: var(--accent-blue); }
-        .badge-active { background: rgba(0, 212, 255, 0.2); color: var(--accent-blue); }
-        .badge-aguardando { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
-        .badge-concluido { background: rgba(16, 185, 129, 0.2); color: #34d399; }
-
-        .project-body {
-            padding: 1.25rem;
-        }
-
-        .progress-section { margin-bottom: 1rem; }
-
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .progress-bar {
-            height: 6px;
-            background: var(--bg-secondary);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
-            border-radius: 3px;
-            transition: width 0.5s ease;
-        }
-
-        .ksf-section {
-            margin-bottom: 1rem;
-        }
-
-        .ksf-title {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .ksf-list {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .ksf-item {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        .ksf-yes { background: var(--success); }
-        .ksf-no { background: var(--bg-secondary); color: var(--text-muted); }
-
-        .project-footer {
-            padding: 1rem 1.25rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .project-updated {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        .project-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .btn-sm {
-            padding: 0.4rem 0.75rem;
-            font-size: 0.8rem;
-            border-radius: var(--radius-sm);
-        }
-
-        /* File Browser */
-        .file-browser {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-        }
-
-        .file-header {
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .breadcrumb {
-            display: flex;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .breadcrumb-item {
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .breadcrumb-item:hover { color: var(--accent-blue); }
-        .breadcrumb-separator { color: var(--text-muted); }
-        .breadcrumb-current { color: var(--text-primary); }
-
-        .file-list {
-            max-height: 60vh;
-            overflow-y: auto;
-        }
-
-        .file-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 1.5rem;
-            border-bottom: 1px solid var(--border);
-            transition: background 0.3s;
-        }
-
-        .file-item:hover { background: rgba(0, 212, 255, 0.05); }
-
-        .file-info {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .file-icon { font-size: 1.25rem; }
-
-        .file-name {
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-
-        .file-meta {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-left: 0.5rem;
-        }
-
-        .file-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .btn-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
-            background: transparent;
-            color: var(--text-secondary);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .btn-icon:hover {
-            background: var(--accent-blue);
-            color: var(--bg-primary);
-            border-color: var(--accent-blue);
-        }
-
-        .loading {
-            padding: 3rem;
-            text-align: center;
-            color: var(--text-secondary);
-        }
-
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            padding: 1rem;
-        }
-
+        .hero { background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 204, 0.05)); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .hero h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .hero p { color: var(--text-secondary); font-size: 0.95rem; }
+        .hero-stats { display: flex; gap: 2rem; }
+        .hero-stat { text-align: center; }
+        .hero-stat-value { font-size: 2rem; font-weight: 700; background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-stat-label { font-size: 0.85rem; color: var(--text-muted); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.25rem; transition: all 0.3s; }
+        .stat-card:hover { border-color: var(--accent-blue); transform: translateY(-4px); }
+        .stat-card-icon { width: 40px; height: 40px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 0.75rem; }
+        .stat-card-icon.blue { background: rgba(0, 212, 255, 0.15); color: var(--accent-blue); }
+        .stat-card-icon.green { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+        .stat-card-icon.orange { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+        .stat-value { font-size: 2rem; font-weight: 700; color: var(--text-primary); }
+        .stat-label { color: var(--text-secondary); font-size: 0.85rem; }
+        .section-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .project-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; transition: all 0.3s; }
+        .project-card:hover { border-color: var(--accent-blue); transform: translateY(-4px); box-shadow: 0 10px 40px rgba(0, 212, 255, 0.1); }
+        .project-header { padding: 1.25rem; border-bottom: 1px solid var(--border); }
+        .project-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+        .project-id { font-size: 0.75rem; color: var(--accent-cyan); font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+        .project-status { padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
+        .status-active { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+        .status-aguardando { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+        .status-concluido { background: rgba(0, 212, 255, 0.2); color: var(--accent-blue); }
+        .project-name { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .project-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.75rem; }
+        .project-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .badge { padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.7rem; font-weight: 500; }
+        .badge-tier { background: rgba(168, 85, 247, 0.2); color: var(--accent-purple); }
+        .badge-gate { background: rgba(0, 212, 255, 0.15); color: var(--accent-blue); font-family: 'JetBrains Mono', monospace; }
+        .project-body { padding: 1.25rem; }
+        .gates-timeline { display: flex; gap: 0.25rem; margin-bottom: 1rem; }
+        .gate-node { flex: 1; height: 4px; background: var(--bg-tertiary); border-radius: 2px; position: relative; }
+        .gate-node.completed { background: var(--success); }
+        .gate-node.current { background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan)); }
+        .gate-node.pending { background: var(--bg-tertiary); }
+        .gate-node::after { content: attr(data-gate); position: absolute; top: 8px; left: 50%; transform: translateX(-50%); font-size: 0.65rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+        .progress-header { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+        .progress-bar { height: 6px; background: var(--bg-tertiary); border-radius: 3px; overflow: hidden; margin-bottom: 1rem; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan)); border-radius: 3px; transition: width 0.5s ease; }
+        .ksf-title { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .ksf-list { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .ksf-item { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; }
+        .ksf-yes { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+        .ksf-no { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); }
+        .project-footer { padding: 1rem 1.25rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .project-date { font-size: 0.75rem; color: var(--text-muted); }
+        .outputs-grid { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem; }
+        .outputs-group { margin-top: 1rem; }
+        .outputs-group-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+        .outputs-group-title { font-size: 0.85rem; font-weight: 600; color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace; }
+        .outputs-group-name { font-size: 0.9rem; color: var(--text-primary); }
+        .outputs-files { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.75rem; }
+        .output-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1rem; display: flex; align-items: center; gap: 0.75rem; cursor: pointer; transition: all 0.3s; }
+        .output-card:hover { border-color: var(--accent-blue); transform: translateX(4px); }
+        .output-icon { width: 40px; height: 40px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+        .output-icon.html { background: rgba(245, 158, 11, 0.15); }
+        .output-icon.md { background: rgba(0, 212, 255, 0.15); }
+        .output-info { flex: 1; min-width: 0; }
+        .output-name { font-size: 0.9rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .output-meta { font-size: 0.75rem; color: var(--text-muted); }
+        .output-download { width: 32px; height: 32px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .output-download:hover { background: var(--accent-blue); color: var(--bg-primary); border-color: var(--accent-blue); }
+        .meetings-list { display: flex; flex-direction: column; gap: 0.75rem; }
+        .meeting-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1rem 1.25rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.3s; }
+        .meeting-card:hover { border-color: var(--accent-blue); }
+        .meeting-info { display: flex; align-items: center; gap: 1rem; }
+        .meeting-icon { width: 44px; height: 44px; border-radius: var(--radius-sm); background: rgba(0, 212, 255, 0.1); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+        .meeting-name { font-weight: 600; margin-bottom: 0.25rem; }
+        .meeting-date { font-size: 0.85rem; color: var(--text-secondary); }
+        .meeting-status { padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 500; }
+        .status-pending { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+        .status-completed { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+        .footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 2rem; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 1rem; }
         .modal-overlay.active { display: flex; }
-
-        .modal {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            max-width: 600px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .modal-close {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: none;
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 1.25rem;
-            transition: all 0.3s;
-        }
-
+        .modal { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; }
+        .modal-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 1.1rem; font-weight: 600; }
+        .modal-close { width: 32px; height: 32px; border-radius: 50%; border: none; background: var(--bg-tertiary); color: var(--text-secondary); cursor: pointer; font-size: 1.25rem; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
         .modal-close:hover { background: var(--danger); color: white; }
-
         .modal-body { padding: 1.5rem; }
-
-        .form-group { margin-bottom: 1.25rem; }
-
-        .form-label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        .form-input, .form-select, .form-textarea {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
-        }
-
-        .form-textarea { min-height: 100px; resize: vertical; }
-
-        .modal-footer {
-            padding: 1.25rem 1.5rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: flex-end;
-            gap: 0.75rem;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            border-top: 1px solid var(--border);
-            margin-top: 2rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header { flex-direction: column; gap: 1rem; }
-            .tabs { width: 100%; justify-content: center; }
-            .projects-grid { grid-template-columns: 1fr; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        .modal-footer { padding: 1rem 1.5rem; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 0.75rem; }
+        .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+        .modal-item { background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; }
+        .modal-item-label { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem; }
+        .modal-item-value { font-weight: 600; }
+        @media (max-width: 768px) { .header { flex-direction: column; gap: 1rem; } .nav-tabs { width: 100%; justify-content: center; flex-wrap: wrap; } .projects-grid { grid-template-columns: 1fr; } .hero { flex-direction: column; text-align: center; } .hero-stats { width: 100%; justify-content: center; } }
     </style>
 </head>
 <body>
@@ -548,454 +142,159 @@
             <div class="logo-icon">⚡</div>
             <div class="logo-text">Factory<span>OS</span></div>
         </div>
-
-        <div class="tabs">
-            <button class="tab active" data-tab="projects">📊</button>
-            <button class="tab" data-tab="files">📁</button>
-            <button class="tab" data-tab="manual">📖</button>
-        </div>
-
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="overview"><i class="ri-dashboard-line"></i> Overview</button>
+            <button class="nav-tab" data-tab="projects"><i class="ri-folder-3-line"></i> Projetos</button>
+            <button class="nav-tab" data-tab="outputs"><i class="ri-download-2-line"></i> Outputs</button>
+            <button class="nav-tab" data-tab="meetings"><i class="ri-calendar-line"></i> Reuniões</button>
+        </nav>
         <div class="header-actions">
-            <button class="btn btn-secondary" onclick="refreshData()">🔄</button>
-            <button class="btn btn-primary" onclick="openNewProjectModal()">+ Novo Projeto</button>
+            <button class="btn btn-secondary btn-sm" onclick="location.reload()"><i class="ri-refresh-line"></i></button>
+            <button class="btn btn-primary"><i class="ri-add-line"></i> Novo Projeto</button>
         </div>
     </header>
-
     <main class="main">
-        <!-- Projects Section -->
-        <section id="projects-section" class="section active">
+        <section id="overview-section" class="section active">
+            <div class="hero">
+                <div>
+                    <h1>FactoryOS Dashboard</h1>
+                    <p>Sistema de gestão de projetos e automações multi-agentes</p>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat"><div class="hero-stat-value">4</div><div class="hero-stat-label">Projetos</div></div>
+                    <div class="hero-stat"><div class="hero-stat-value" style="color: var(--success)">3</div><div class="hero-stat-label">Concluídos</div></div>
+                    <div class="hero-stat"><div class="hero-stat-value" style="color: var(--warning)">1</div><div class="hero-stat-label">Em Validação</div></div>
+                </div>
+            </div>
             <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-value" id="stat-ativos">-</div>
-                    <div class="stat-label">Projetos Ativos</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="stat-aguardando">-</div>
-                    <div class="stat-label">Aguardando</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="stat-concluidos">-</div>
-                    <div class="stat-label">Concluídos</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="stat-total">-</div>
-                    <div class="stat-label">Total</div>
-                </div>
+                <div class="stat-card"><div class="stat-card-icon blue"><i class="ri-rocket-line"></i></div><div class="stat-value">0</div><div class="stat-label">Projetos Ativos</div></div>
+                <div class="stat-card"><div class="stat-card-icon orange"><i class="ri-time-line"></i></div><div class="stat-value">1</div><div class="stat-label">Em Validação QA</div></div>
+                <div class="stat-card"><div class="stat-card-icon green"><i class="ri-check-double-line"></i></div><div class="stat-value">3</div><div class="stat-label">Concluídos</div></div>
+                <div class="stat-card"><div class="stat-card-icon blue"><i class="ri-file-copy-line"></i></div><div class="stat-value">13</div><div class="stat-label">Outputs</div></div>
             </div>
-
-            <div class="projects-header">
-                <h2 class="projects-title">Projetos</h2>
-                <div class="tabs" style="background: transparent; padding: 0;">
-                    <button class="tab active" data-filter="todos">Todos</button>
-                    <button class="tab" data-filter="ativos">Ativos</button>
-                    <button class="tab" data-filter="aguardando">Aguardando</button>
-                    <button class="tab" data-filter="concluidos">Concluídos</button>
-                </div>
-            </div>
-
-            <div class="projects-grid" id="projects-grid">
-                <div class="loading">Carregando projetos...</div>
-            </div>
+            <h3 class="section-title"><i class="ri-star-line"></i> Projetos Recentes</h3>
+            <div class="projects-grid" id="projects-overview"></div>
         </section>
-
-        <!-- Files Section -->
-        <section id="files-section" class="section">
-            <div class="projects-header">
-                <h2 class="projects-title">📁 Arquivos</h2>
-            </div>
-
-            <div class="file-browser">
-                <div class="file-header">
-                    <div class="breadcrumb" id="breadcrumb">
-                        <span class="breadcrumb-item" onclick="navigateTo('')">docs/projetos</span>
+        <section id="projects-section" class="section">
+            <h3 class="section-title"><i class="ri-folder-3-line"></i> Todos os Projetos</h3>
+            <div class="projects-grid" id="projects-all"></div>
+        </section>
+        <section id="outputs-section" class="section">
+            <h3 class="section-title"><i class="ri-download-2-line"></i> Outputs por Projeto</h3>
+            <div class="outputs-grid" id="outputs-list"></div>
+        </section>
+        <section id="meetings-section" class="section">
+            <h3 class="section-title"><i class="ri-calendar-line"></i> Atas de Reunião</h3>
+            <div class="meetings-list">
+                <div class="meeting-card" onclick="downloadMeeting('DAILY_SYNC_2026-02-16')">
+                    <div class="meeting-info">
+                        <div class="meeting-icon">📋</div>
+                        <div><div class="meeting-name">Daily Strategic Sync</div><div class="meeting-date">16/02/2026 - 12:00</div></div>
                     </div>
-                    <button class="btn btn-secondary btn-sm" onclick="navigateTo('')">🔄 Atualizar</button>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <span class="meeting-status status-pending">Pendente</span>
+                        <button class="btn btn-secondary btn-sm"><i class="ri-download-line"></i></button>
+                    </div>
                 </div>
-                <div class="file-list" id="file-list">
-                    <div class="loading">Carregando arquivos...</div>
+                <div class="meeting-card" onclick="downloadMeeting('REUNIAO_teste_12022026')">
+                    <div class="meeting-info">
+                        <div class="meeting-icon">🧪</div>
+                        <div><div class="meeting-name">Reunião Teste</div><div class="meeting-date">12/02/2026 - 12:18</div></div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <span class="meeting-status status-completed">Completa</span>
+                        <button class="btn btn-secondary btn-sm"><i class="ri-download-line"></i></button>
+                    </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Manual Section -->
-        <section id="manual-section" class="section">
-            <div class="projects-header">
-                <h2 class="projects-title">📖 Manual</h2>
-            </div>
-            <div class="stat-card" style="text-align: center; padding: 3rem;">
-                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Manual completo do FactoryOS Dashboard</p>
-                <a href="MANUAL.html" target="_blank" class="btn btn-primary">📖 Abrir Manual</a>
             </div>
         </section>
     </main>
-
-    <!-- Modal Novo Projeto -->
-    <div class="modal-overlay" id="new-project-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 class="modal-title">Novo Projeto</h3>
-                <button class="modal-close" onclick="closeNewProjectModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label class="form-label">Nome do Projeto</label>
-                    <input type="text" class="form-input" id="project-name" placeholder="Ex: Análise de Mercado">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Tier</label>
-                    <select class="form-select" id="project-tier">
-                        <option value="LITE">LITE</option>
-                        <option value="MEDIUM">MEDIUM</option>
-                        <option value="ENTERPRISE">ENTERPRISE</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Departamento</label>
-                    <select class="form-select" id="project-dept">
-                        <option value="INTERNAL">INTERNAL</option>
-                        <option value="SALES">SALES</option>
-                        <option value="MARKETING">MARKETING</option>
-                        <option value="ENGINEERING">ENGINEERING</option>
-                        <option value="TRADING">TRADING</option>
-                        <option value="FINANCE">FINANCE</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Objetivo</label>
-                    <textarea class="form-textarea" id="project-objective" placeholder="Descreva o objetivo do projeto..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Prazo</label>
-                    <input type="date" class="form-input" id="project-deadline">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeNewProjectModal()">Cancelar</button>
-                <button class="btn btn-primary" onclick="createProject()">Criar Projeto</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Detalhes -->
-    <div class="modal-overlay" id="details-modal">
-        <div class="modal" style="max-width: 700px;">
-            <div class="modal-header">
-                <h3 class="modal-title" id="detail-title">PROJ-XXX</h3>
-                <button class="modal-close" onclick="closeDetailsModal()">&times;</button>
-            </div>
-            <div class="modal-body" id="detail-body">
-                <!-- Content -->
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeDetailsModal()">Fechar</button>
-            </div>
-        </div>
-    </div>
-
-    <footer class="footer">
-        <p>📊 FactoryOS Dashboard | Atualizado: <span id="last-updated">-</span></p>
-    </footer>
+    <footer class="footer"><p><i class="ri-robot-line"></i> FactoryOS Dashboard | Gerenciado por Agentes IA</p></footer>
 
     <script>
-        // State
-        let currentPath = 'docs/projetos';
-        let projects = [];
-        let currentFilter = 'todos';
+        var projects = [
+            {id: 'PROJ-004', name: 'Trading Dashboard Quantitativo', tier: 'ENTERPRISE', status: 'Em Validação QA', statusKey: 'aguardando', gate: 5, gatesTotal: 5, ksfs: {completed: 16, total: 16}, descricao: 'Dashboard inteligente para trading quantitativo com registro de trades, análise de performance, recomendações automáticas e integração com bots Pionex.', outputs: ['REQUEST.md', 'RESPONSIBILITY_MATRIX.md', 'STATUS.md', 'RD-001.md', 'DESIGN-001.md', 'MC-001.md', 'IA-ANALYST.md', 'INTEGRATION.md', 'bot_api.py', 'trade.py', 'dashboard.html'], lastUpdate: '2026-02-12'},
+            {id: 'PROJ-003', name: 'FactoryOS Dashboard', tier: 'ENTERPRISE', status: 'Concluído', statusKey: 'concluido', gate: 5, gatesTotal: 5, ksfs: {completed: 5, total: 5}, descricao: 'Plataforma web para gestão visual de todos os projetos do FactoryOS, com monitoramento em tempo real, status de gates e KSFs.', outputs: ['DASHBOARD.html', 'MANUAL.html', 'DESIGN-SYSTEM.md'], lastUpdate: '2026-02-12'},
+            {id: 'PROJ-002', name: 'Melhoria da Qualidade Visual', tier: 'ENTERPRISE', status: 'Concluído', statusKey: 'concluido', gate: 5, gatesTotal: 5, ksfs: {completed: 6, total: 6}, descricao: 'Diagnóstico e plano de ação para melhorar a qualidade visual do ecossistema FactoryOS, incluindo Design System e roadmap de implementação.', outputs: ['SLIDES-001-MELHORADO.html', 'ROADMAP.md', 'BUDGET-DETALHADO.md'], lastUpdate: '2026-02-12'},
+            {id: 'PROJ-001', name: 'Procedure Check + Marketing', tier: 'ENTERPRISE', status: 'Concluído', statusKey: 'concluido', gate: 5, gatesTotal: 5, ksfs: {completed: 4, total: 4}, descricao: 'Procedure check completo de todos os 26 agentes do FactoryOS e produção de material de marketing visual inicial.', outputs: ['SLIDES-001.html', 'QA-REPORT.md'], lastUpdate: '2026-02-12'}
+        ];
 
-        // Icons
-        const fileIcons = {
-            'md': '📝', 'js': '📜', 'html': '⚙️', 'css': '🎨',
-            'json': '📋', 'sh': '🔧', 'png': '🖼️', 'jpg': '🖼️',
-            'pdf': '📕', 'zip': '📦', 'default': '📄'
-        };
-
-        // API Base
-        const API_BASE = '/api';
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            initTabs();
-            initFilters();
-            loadProjects();
-            loadFiles();
-            autoRefresh();
-        });
-
-        // Tabs
         function initTabs() {
-            document.querySelectorAll('.tabs .tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const target = tab.dataset.tab;
-                    if (target) {
-                        document.querySelectorAll('.tabs .tab, .section').forEach(el => {
-                            el.classList.remove('active');
-                        });
-                        tab.classList.add('active');
-                        document.getElementById(`${target}-section`).classList.add('active');
-                    }
+            var tabs = document.querySelectorAll('.nav-tab');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].addEventListener('click', function() {
+                    var target = this.getAttribute('data-tab');
+                    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+                    document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+                    this.classList.add('active');
+                    document.getElementById(target + '-section').classList.add('active');
                 });
-            });
-        }
-
-        // Filters
-        function initFilters() {
-            document.querySelectorAll('[data-filter]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    currentFilter = btn.dataset.filter;
-                    document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    renderProjects();
-                });
-            });
-        }
-
-        // Load Projects
-        async function loadProjects() {
-            try {
-                const response = await fetch(`${API_BASE}/projetos`);
-                if (response.ok) {
-                    projects = await response.json();
-                } else {
-                    projects = getMockProjects();
-                }
-                renderProjects();
-                updateStats();
-            } catch (e) {
-                projects = getMockProjects();
-                renderProjects();
-                updateStats();
             }
         }
 
-        // Load Files
-        async function loadFiles() {
-            const container = document.getElementById('file-list');
-            container.innerHTML = '<div class="loading">Carregando arquivos...</div>';
-
-            try {
-                const response = await fetch(`${API_BASE}/arquivos?path=${encodeURIComponent(currentPath)}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    renderFiles(data);
-                } else {
-                    container.innerHTML = '<div class="loading">API não disponível. Configure o servidor.</div>';
-                }
-            } catch (e) {
-                container.innerHTML = '<div class="loading">Erro ao carregar arquivos. Tente novamente.</div>';
-            }
-        }
-
-        // Render Projects
         function renderProjects() {
-            const grid = document.getElementById('projects-grid');
-            const filtered = projects.filter(p => {
-                if (currentFilter === 'todos') return true;
-                return p.status.toLowerCase().replace(' ', '') === currentFilter;
+            var html = projects.map(function(p) {
+                var gatesHtml = '';
+                for (var g = 1; g <= p.gatesTotal; g++) {
+                    var statusClass = g < p.gate ? 'completed' : (g === p.gate ? 'current' : 'pending');
+                    gatesHtml += '<div class="gate-node ' + statusClass + '" data-gate="' + g + '"></div>';
+                }
+                var ksfHtml = '';
+                for (var k = 1; k <= p.ksfs.total; k++) {
+                    ksfHtml += '<div class="ksf-item ' + (k <= p.ksfs.completed ? 'ksf-yes' : 'ksf-no') + '">' + (k <= p.ksfs.completed ? '✓' : '×') + '</div>';
+                }
+                return '<div class="project-card"><div class="project-header"><div class="project-top"><span class="project-id">' + p.id + '</span><span class="project-status status-' + p.statusKey + '">' + p.status + '</span></div><div class="project-name">' + p.name + '</div><div class="project-desc">' + p.descricao + '</div><div class="project-badges"><span class="badge badge-tier">' + p.tier + '</span><span class="badge badge-gate">Gate ' + p.gate + '/' + p.gatesTotal + '</span></div></div><div class="project-body"><div class="gates-timeline">' + gatesHtml + '</div><div class="progress-header"><span>KSFs</span><span>' + p.ksfs.completed + '/' + p.ksfs.total + '</span></div><div class="progress-bar"><div class="progress-fill" style="width: ' + (p.ksfs.completed / p.ksfs.total * 100) + '%"></div></div><div class="ksf-title">Key Success Factors</div><div class="ksf-list">' + ksfHtml + '</div></div><div class="project-footer"><span class="project-date">Atualizado: ' + new Date(p.lastUpdate).toLocaleDateString('pt-BR') + '</span><button class="btn btn-secondary btn-sm" onclick="showProjectDetails(\'' + p.id + '\')"><i class="ri-information-line"></i> Detalhes</button></div></div>';
+            }).join('');
+            document.getElementById('projects-overview').innerHTML = html;
+            document.getElementById('projects-all').innerHTML = html;
+        }
+
+        function renderOutputs() {
+            var container = document.getElementById('outputs-list');
+            var html = '';
+            projects.forEach(function(p) {
+                if (p.outputs && p.outputs.length > 0) {
+                    var filesHtml = p.outputs.map(function(out) {
+                        var type = out.endsWith('.html') ? 'html' : 'md';
+                        return '<div class="output-card" onclick="downloadOutput(\'' + p.id + '\', \'' + out + '\')"><div class="output-icon ' + type + '">' + (out.endsWith('.html') ? '📊' : '📝') + '</div><div class="output-info"><div class="output-name">' + out + '</div><div class="output-meta">' + p.id + '</div></div><button class="output-download" title="Download"><i class="ri-download-line"></i></button></div>';
+                    }).join('');
+                    html += '<div class="outputs-group"><div class="outputs-group-header"><span class="outputs-group-title">' + p.id + '</span><span class="outputs-group-name">' + p.name + '</span></div><div class="outputs-files">' + filesHtml + '</div></div>';
+                }
             });
+            container.innerHTML = html || '<p style="color: var(--text-muted);">Nenhum output disponível.</p>';
+        }
 
-            if (filtered.length === 0) {
-                grid.innerHTML = '<div class="loading">Nenhum projeto encontrado.</div>';
-                return;
+        function showProjectDetails(id) {
+            var p = null;
+            for (var i = 0; i < projects.length; i++) { if (projects[i].id === id) { p = projects[i]; break; } }
+            if (!p) return;
+            var outputsHtml = '';
+            if (p.outputs && p.outputs.length > 0) {
+                outputsHtml = '<div style="margin-top: 1rem;"><div style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem;">Outputs</div>' + p.outputs.map(function(out) {
+                    return '<div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: var(--bg-tertiary); border-radius: 8px; margin-bottom: 0.5rem;"><span>' + (out.endsWith('.html') ? '📊' : '📝') + '</span><span style="flex: 1;">' + out + '</span><button class="btn btn-secondary btn-sm" onclick="downloadOutput(\'' + p.id + '\', \'' + out + '\')"><i class="ri-download-line"></i></button></div>';
+                }).join('') + '</div>';
             }
-
-            grid.innerHTML = filtered.map(p => `
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-id">${p.id}</div>
-                        <div class="project-name">${p.name}</div>
-                        <div class="badges">
-                            <span class="badge badge-${p.tier.toLowerCase()}">${p.tier}</span>
-                            <span class="badge badge-${p.status.toLowerCase().replace(' ', '')}">${p.status}</span>
-                        </div>
-                    </div>
-                    <div class="project-body">
-                        <div class="progress-section">
-                            <div class="progress-label">
-                                <span>Gates</span>
-                                <span>${p.gates?.current || 0}/${p.gates?.total || 5}</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: ${((p.gates?.current || 0) / (p.gates?.total || 5)) * 100}%"></div>
-                            </div>
-                        </div>
-                        <div class="ksf-section">
-                            <div class="ksf-title">KSFs</div>
-                            <div class="ksf-list">
-                                ${Array(5).fill(0).map((_, i) => `
-                                    <div class="ksf-item ${i < (p.ksfs?.completed || 0) ? 'ksf-yes' : 'ksf-no'}">
-                                        ${i < (p.ksfs?.completed || 0) ? '✓' : '×'}
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-footer">
-                        <div class="project-updated">${p.lastUpdate ? new Date(p.lastUpdate).toLocaleString() : '-'}</div>
-                        <div class="project-actions">
-                            <button class="btn btn-secondary btn-sm" onclick="viewDetails('${p.id}')">Ver Detalhes</button>
-                            <button class="btn btn-secondary btn-sm" onclick="editStatus('${p.id}')">Editar</button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
+            var modalHtml = '<div class="modal-overlay active" id="project-details-modal"><div class="modal"><div class="modal-header"><h3 class="modal-title">' + p.id + ' - ' + p.name + '</h3><button class="modal-close" onclick="closeProjectDetails()">×</button></div><div class="modal-body"><p style="color: var(--text-secondary); margin-bottom: 1rem;">' + p.descricao + '</p><div class="modal-grid"><div class="modal-item"><div class="modal-item-label">Status</div><div class="modal-item-value">' + p.status + '</div></div><div class="modal-item"><div class="modal-item-label">Tier</div><div class="modal-item-value">' + p.tier + '</div></div><div class="modal-item"><div class="modal-item-label">Gate</div><div class="modal-item-value">' + p.gate + '/' + p.gatesTotal + '</div></div><div class="modal-item"><div class="modal-item-label">KSFs</div><div class="modal-item-value">' + p.ksfs.completed + '/' + p.ksfs.total + '</div></div></div>' + outputsHtml + '</div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeProjectDetails()">Fechar</button></div></div></div>';
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
         }
 
-        // Render Files
-        function renderFiles(data) {
-            const container = document.getElementById('file-list');
-            const breadcrumb = document.getElementById('breadcrumb');
+        function closeProjectDetails() { var m = document.getElementById('project-details-modal'); if (m) m.remove(); }
 
-            // Breadcrumb
-            const parts = currentPath.split('/').filter(Boolean);
-            let breadcrumbHtml = '<span class="breadcrumb-item" onclick="navigateTo(\'\')">docs/projetos</span>';
-            let pathSoFar = '';
-            parts.forEach(part => {
-                pathSoFar += '/' + part;
-                breadcrumbHtml += `<span class="breadcrumb-separator">/</span><span class="breadcrumb-item" onclick="navigateTo('${pathSoFar.slice(1)}')">${part}</span>`;
-            });
-            breadcrumb.innerHTML = breadcrumbHtml;
-
-            // Files
-            let html = '';
-
-            if (data.folders?.length) {
-                data.folders.forEach(f => {
-                    html += `
-                        <div class="file-item">
-                            <div class="file-info">
-                                <span class="file-icon">📁</span>
-                                <span class="file-name">${f.name}</span>
-                            </div>
-                            <div class="file-actions">
-                                <button class="btn-icon" onclick="navigateTo('${f.path}')">📂</button>
-                            </div>
-                        </div>
-                    `;
-                });
-            }
-
-            if (data.files?.length) {
-                data.files.forEach(f => {
-                    const ext = f.name.split('.').pop().toLowerCase();
-                    const icon = fileIcons[ext] || fileIcons.default;
-                    html += `
-                        <div class="file-item">
-                            <div class="file-info">
-                                <span class="file-icon">${icon}</span>
-                                <span class="file-name">${f.name}</span>
-                                <span class="file-meta">${f.size || ''}</span>
-                            </div>
-                            <div class="file-actions">
-                                <button class="btn-icon" onclick="downloadFile('${f.path}')" title="Download">⬇️</button>
-                            </div>
-                        </div>
-                    `;
-                });
-            }
-
-            if (!html) {
-                html = '<div class="loading">Pasta vazia.</div>';
-            }
-
-            container.innerHTML = html;
+        function downloadOutput(project, filename) {
+            var paths = {
+                'PROJ-001-procedure-check': 'PROJ-003-dashboard-factoryos/PROJ-001-procedure-check/outputs/' + filename,
+                'PROJ-002-visual-improvement': 'PROJ-003-dashboard-factoryos/PROJ-002-visual-improvement/outputs/' + filename,
+                'PROJ-003-dashboard-factoryos': 'PROJ-003-dashboard-factoryos/' + filename,
+                'PROJ-004-trading-dashboard': 'PROJ-004-trading-dashboard/' + filename
+            };
+            window.open(paths[project], '_blank');
         }
 
-        // Navigate
-        function navigateTo(path) {
-            currentPath = path;
-            loadFiles();
-        }
+        function downloadMeeting(filename) { window.open('REUNIOES/' + filename + '.md', '_blank'); }
 
-        // Download
-        function downloadFile(path) {
-            window.open(`${API_BASE}/arquivos/${path}`, '_blank');
-        }
-
-        // Update Stats
-        function updateStats() {
-            document.getElementById('stat-ativos').textContent = projects.filter(p => p.status === 'Em Andamento').length;
-            document.getElementById('stat-aguardando').textContent = projects.filter(p => p.status === 'Aguardando').length;
-            document.getElementById('stat-concluidos').textContent = projects.filter(p => p.status === 'Concluído').length;
-            document.getElementById('stat-total').textContent = projects.length;
-        }
-
-        // Modals
-        function openNewProjectModal() {
-            document.getElementById('new-project-modal').classList.add('active');
-        }
-
-        function closeNewProjectModal() {
-            document.getElementById('new-project-modal').classList.remove('active');
-        }
-
-        function viewDetails(id) {
-            const project = projects.find(p => p.id === id);
-            if (!project) return;
-
-            document.getElementById('detail-title').textContent = project.id;
-            document.getElementById('detail-body').innerHTML = `
-                <p><strong>Nome:</strong> ${project.name}</p>
-                <p><strong>Status:</strong> ${project.status}</p>
-                <p><strong>Tier:</strong> ${project.tier}</p>
-                <p><strong>Gates:</strong> ${project.gates?.current || 0}/${project.gates?.total || 5}</p>
-                <p><strong>KSFs:</strong> ${project.ksfs?.completed || 0}/${project.ksfs?.total || 5}</p>
-                <p><strong>Última atualização:</strong> ${project.lastUpdate ? new Date(project.lastUpdate).toLocaleString() : '-'}</p>
-            `;
-            document.getElementById('details-modal').classList.add('active');
-        }
-
-        function closeDetailsModal() {
-            document.getElementById('details-modal').classList.remove('active');
-        }
-
-        function editStatus(id) {
-            alert('Funcionalidade de edição em desenvolvimento.');
-        }
-
-        // Create Project
-        async function createProject() {
-            const name = document.getElementById('project-name').value;
-            if (!name) return alert('Nome é obrigatório.');
-
-            // Here you would POST to API
-            alert('Projeto criado! (Mock)');
-            closeNewProjectModal();
-        }
-
-        // Refresh
-        function refreshData() {
-            loadProjects();
-            loadFiles();
-            document.getElementById('last-updated').textContent = new Date().toLocaleString();
-        }
-
-        // Auto Refresh
-        function autoRefresh() {
-            setInterval(refreshData, 30000);
-        }
-
-        // Mock Data
-        function getMockProjects() {
-            return [
-                { id: 'PROJ-003', name: 'FactoryOS Dashboard', tier: 'ENTERPRISE', status: 'Em Andamento', gates: { current: 3, total: 5 }, ksfs: { completed: 3, total: 5 }, lastUpdate: new Date().toISOString() },
-                { id: 'PROJ-002', name: 'Melhoria da Qualidade Visual', tier: 'ENTERPRISE', status: 'Concluído', gates: { current: 5, total: 5 }, ksfs: { completed: 6, total: 6 }, lastUpdate: '2026-02-12T06:47:00Z' },
-                { id: 'PROJ-001', name: 'Procedure Check + Marketing', tier: 'ENTERPRISE', status: 'Concluído', gates: { current: 5, total: 5 }, ksfs: { completed: 4, total: 4 }, lastUpdate: '2026-02-12T06:33:00Z' }
-            ];
-        }
-
-        // Close modals on click outside
-        document.querySelectorAll('.modal-overlay').forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) modal.classList.remove('active');
-            });
-        });
-
-        // Keyboard
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
-            }
-        });
+        initTabs();
+        renderProjects();
+        renderOutputs();
     </script>
 </body>
 </html>

@@ -282,10 +282,10 @@
 
         function downloadOutput(project, filename) {
             var paths = {
-                'PROJ-001': 'PROJ-003-dashboard-factoryos/PROJ-001-procedure-check/outputs/' + filename,
-                'PROJ-002': 'PROJ-003-dashboard-factoryos/PROJ-002-visual-improvement/outputs/' + filename,
-                'PROJ-003': 'PROJ-003-dashboard-factoryos/' + filename,
-                'PROJ-004': 'PROJ-004-trading-dashboard/' + filename
+                'PROJ-001-procedure-check': 'PROJ-003-dashboard-factoryos/PROJ-001-procedure-check/outputs/' + filename,
+                'PROJ-002-visual-improvement': 'PROJ-003-dashboard-factoryos/PROJ-002-visual-improvement/outputs/' + filename,
+                'PROJ-003-dashboard-factoryos': 'PROJ-003-dashboard-factoryos/' + filename,
+                'PROJ-004-trading-dashboard': 'PROJ-004-trading-dashboard/' + filename
             };
             window.open(paths[project], '_blank');
         }
