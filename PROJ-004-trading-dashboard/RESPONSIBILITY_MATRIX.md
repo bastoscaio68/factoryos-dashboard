@@ -10,55 +10,57 @@
 | Agent | Papel | Responsabilidade |
 |-------|-------|------------------|
 | **brain** | Arquiteto + Strategist | Arquitetura, estratégia, validação |
-| **scope_parser** | Requisitos | Especificação técnica detalhada |
-| **calc_engine** | Cálculos | Lógica quantitativa, métricas |
-| **engineering/scope_parser** | Backend | API, banco de dados, Python |
-| **engineering/drawing_generator** | Frontend | Dashboard, React/Next.js, Charts |
+| **engineering/scope_parser** | Requisitos + Backend | Especificação técnica, API, DB, Python |
+| **engineering/calc_engine** | Quant Engineer | Lógica quantitativa, métricas, PnL |
+| **design/brand_system** | UX/UI Designer | Design gráfico, identidade visual, Charts |
+| **ops/bot_manager** | DevOps | Script /trade, automações, integração |
 | **trading/crypto_analyst** | Domain Expert | Estratégia de trading, regimes BTC |
 | **quality_auditor** | QA | Validação, testes, padrões |
 
 ---
 
-## 🚦 Gates e Transições────────────────────────────────────────────────────────────────
+## 🚦 Gates e Transições
 
 ```
-┌─┐
-│                        GATE 0 — VALIDAÇÃO                        │
-│  brain analisa escopo → Aprova → scope_parser detalha           │
-│  brain rejeita → Retorna para complementar                       │
+┌─────────────────────────────────────────────────────────────────┐
+│                        GATE 0 — VALIDAÇÃO                       │
+│  brain analisa escopo → Solicita aprovação humana               │
+│  Humano aprova → engineering/scope_parser detalha               │
 └─────────────────────────────────────────────────────────────────┘
                               ↓
 ┌─────────────────────────────────────────────────────────────────┐
-│                        GATE 1 — ESTRUTURA                       │
-│  engineering/scope_parser → Backend API                           │
-│  calc_engine → Lógica de métricas                               │
+│                   GATE 1 — ESPECIFICAÇÃO + DESIGN               │
+│  engineering/scope_parser → RD Técnica                          │
+│  design/brand_system → Wireframes e Design System               │
+│  calc_engine → Definição de métricas                            │
 │  Dono: brain                                                   │
 └─────────────────────────────────────────────────────────────────┘
                               ↓
 ┌─────────────────────────────────────────────────────────────────┐
-│                        GATE 2 — FRONTEND                         │
-│  engineering/drawing_generator → Dashboard React                   │
-│  Charts → TradingView/Chart.js                                   │
+│                   GATE 2 — BACKEND + SCRIPTS                    │
+│  engineering/scope_parser → API + DB + Models                   │
+│  ops/bot_manager → Script /trade (automação)                    │
+│  calc_engine → Lógica de PnL e métricas                         │
 │  Dono: brain                                                   │
 └─────────────────────────────────────────────────────────────────┘
                               ↓
 ┌─────────────────────────────────────────────────────────────────┐
-│                      GATE 3 — IA ANALYST                        │
-│  trading/crypto_analyst → Análise de regime                     │
-│  brain → Recomendação de setup                                  │
+│                   GATE 3 — FRONTEND + IA                       │
+│  design/brand_system → Dashboard React + Gráficos               │
+│  trading/crypto_analyst → Análise de regime + recomendação     │
 │  Dono: brain                                                   │
 └─────────────────────────────────────────────────────────────────┘
                               ↓
 ┌─────────────────────────────────────────────────────────────────┐
-│                     GATE 4 — INTEGRAÇÃO                         │
-│  Todos os agents → Conexão total                               │
-│  Script /trade → Funcional                                     │
+│                   GATE 4 — INTEGRAÇÃO                           │
+│  ops/bot_manager → Conexão script ↔ API                       │
+│  todos → Testes end-to-end                                      │
 │  Dono: brain                                                   │
 └─────────────────────────────────────────────────────────────────┘
                               ↓
 ┌─────────────────────────────────────────────────────────────────┐
 │                        GATE 5 — QA                              │
-│  quality_auditor → Auditoria final                               │
+│  quality_auditor → Auditoria final                             │
 │  brain → Aprovação final                                        │
 │  Stakeholder → Validação                                        │
 └─────────────────────────────────────────────────────────────────┘
@@ -73,10 +75,10 @@
 | Gate | Entregável | Dono | Precisa de |
 |------|------------|------|------------|
 | Gate 0 | Escopo aprovado | brain | Caio |
-| Gate 1 | API + DB + Models | scope_parser | calc_engine |
-| Gate 2 | Dashboard Completo | drawing_generator | calc_engine |
-| Gate 3 | IA Analyst | crypto_analyst | brain |
-| Gate 4 | Sistema Integrado | todos | quality_auditor |
+| Gate 1 | RD Técnica + Design System | engineering/scope_parser + design/brand_system | calc_engine |
+| Gate 2 | API + DB + Script /trade | engineering/scope_parser + ops/bot_manager | calc_engine |
+| Gate 3 | Dashboard + IA Analyst | design/brand_system + trading/crypto_analyst | brain |
+| Gate 4 | Sistema Integrado | ops/bot_manager + todos | quality_auditor |
 | Gate 5 | MVP Pronto | quality_auditor | Caio |
 
 ---

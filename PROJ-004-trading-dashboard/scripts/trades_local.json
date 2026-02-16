@@ -1,0 +1,14 @@
+[
+  {
+    "datetime": "2024-01-15T14:30:00",
+    "profile": "trend_alta",
+    "result_percent": 2.5,
+    "result_usdt": 125.0,
+    "leverage": 10,
+    "setup": "scalp_1m",
+    "entry": 43250.5,
+    "tp": 43500.0,
+    "sl": 43000.0,
+    "saved_at": "2026-02-12T21:10:23.567145"
+  }
+]
